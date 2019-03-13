@@ -15,7 +15,13 @@ WebSocket协议是基于TCP的一种新的网络协议。它实现了客户端�
 ### 1. 访问地址
 
 - 行情请求地址为：wss://{HOST}/ws
+- HOST常用的格式说明：
 
+需要验签的接口：www.xxxx.com
+
+不需要验签的接口：www.xxxx.com/api
+
+（如果有host的格式问题，请咨询host提供方）
 ### 2. 数据压缩
 WebSocket API 返回的所有数据都进行了 GZIP 压缩，需要 client 在收到数据之后解压，推荐使用pako。（[【pako】](https://github.com/nodeca/pako) 是一个支持压缩和解压 GZIP 的库）
 
