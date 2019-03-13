@@ -19,7 +19,9 @@ API实现程序化交易。
 基于安全考虑，除行情API 外的 API 请求都必须进行签名运算。一个合法的请求由以下几部分组成：
 
 * 方法请求地址 即访问服务器地址：HOST后面跟上方法名，比如{HOST}/v1/order/orders。
-
+
+* Host的常用格式：www.xxxx.com/api （如果有host格式相关问题，请咨询Host提供方）
+
 * API 访问密钥（AccessKeyId） 您申请的 APIKEY 中的AccessKey。
 
 * 签名方法（SignatureMethod） 用户计算签名的基于哈希的协议，此处使用 HmacSHA256。
