@@ -18,9 +18,9 @@ API实现程序化交易。
 ## 合法请求结构
 基于安全考虑，除行情API 外的 API 请求都必须进行签名运算。一个合法的请求由以下几部分组成：
 
-* 方法请求地址 即访问服务器地址：HOST后面跟上方法名，比如{HOST}/v1/order/orders。
+* 方法请求地址 即访问服务器地址：HOST+/api+方法名，比如{HOST}/api/v1/order/orders。
 
-* Host的常用格式：www.xxxx.com/api （如果有host格式相关问题，请咨询Host提供方）
+* Host的常用格式：www.xxxx.com 如果有host格式相关问题，请咨询Host提供方）
 
 * API 访问密钥（AccessKeyId） 您申请的 APIKEY 中的AccessKey。
 
@@ -36,7 +36,7 @@ API实现程序化交易。
 
 例：
 ```
-https://{host}/v1/order/orders?
+https://{HOST}/api/v1/order/orders?
 AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
 &SignatureMethod=HmacSHA256
 &SignatureVersion=2
@@ -53,7 +53,7 @@ API 请求在通过 Internet 发送的过程中极有可能被篡改。为了确
 因为使用 HMAC 进行签名计算时，使用不同内容计算得到的结果会完全不同。所以在进行签名计算前，请先对请求进行规范化处理。下面以查询某订单详情请求为例进行说明
 
 ```
-https://{HOST}/v1/order/orders?
+https://{HOST}/api/v1/order/orders?
 AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
 &SignatureMethod=HmacSHA256
 &SignatureVersion=2
