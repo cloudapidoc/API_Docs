@@ -1355,6 +1355,272 @@ list字段说明
 }
 ```
 
+## 借贷交易API （重要：如果使用借贷资产交易，请在下单接口/v1/order/orders/place请求参数source中填写‘margin-api’）
+
+` 目前仅支持 USDT 交易区和 BTC 交易区部分交易对 `
+
+#### POST /v1/dw/transfer-in/margin  现货账户划入至借贷账户
+#### POST /v1/dw/transfer-out/margin  借贷账户划出至现货账户
+
+请求参数
+
+| 参数名称  | 是否必须  | 类型     | 描述     | 默认值  | 取值范围 |
+| ----- | ----- | ------ | ----- | ---- | -------- |
+| symbol | true  | string | 交易对   |      |      |
+| currency  | true  | string | 币种 |      |    |
+| amount      | true | string | 金额    |      |    |
+
+
+响应数据:
+
+| 参数名称 | 是否必须 | 数据类型 | 描述   | 取值范围 |
+| ---- | ---- | ---- | ---- | ---- |
+| data | true | long | 划转ID  |      |
+
+请求响应例子:
+
+```
+/* POST /v1/dw/transfer-in/margin
+{
+  "symbol": "ethusdt",
+  "currency": "eth",
+  "amount": "1.0"
+} */
+{
+  "status": "ok",
+  "data": 1000
+}
+```
+
+
+#### POST /v1/margin/orders 申请借贷
+
+请求参数
+
+| 参数名称   | 是否必须  | 类型     | 描述    | 默认值  | 取值范围  |
+| ----- | ----- | ------ |  --------------- | ---- | -------- |
+| symbol | true  | string | 交易对   |      |      |
+| currency  | true  | string | 币种 |      |    |
+| amount  | true | string | 金额       |      |   |
+
+
+响应数据:
+
+| 参数名称 | 是否必须 | 数据类型 | 描述   | 取值范围 |
+| ---- | ---- | ---- | ---- | ---- |
+| data | true | long | 订单号  |      |
+
+请求响应例子:
+
+```
+/* POST /v1/margin/orders {
+   "amount": "10.1",
+   "symbol": "ethusdt",
+   "currency": "eth"
+} */
+{
+  "status": "ok",
+  "data": 59378
+}
+```
+
+
+#### POST /v1/margin/orders/{order-id}/repay 归还借贷
+
+请求参数
+
+| 参数名称       | 是否必须  | 类型     | 描述   | 默认值  | 取值范围   |
+| ----- | ----- | ------ | -----  | ---- | --------- |
+| order-id | true  | long | 借贷订单 ID，写在path中  |      |      |
+| amount   | true | string | 还款量   |      |       |
+
+
+响应数据:
+
+| 参数名称 | 是否必须 | 数据类型 | 描述   | 取值范围 |
+| ---- | ---- | ---- | ---- | ---- |
+| data | true | long | 订单号  |      |
+
+请求响应例子:
+
+```
+/* POST /v1/margin/orders/59378/repay {
+   "amount": "10.1"
+}*/
+{
+  "status": "ok",
+  "data": 59378
+}
+```
+
+
+#### GET /v1/margin/loan-orders  借贷订单
+
+请求参数
+
+| 参数名称       | 是否必须  | 类型     | 描述    | 默认值  | 取值范围   |
+| ----- | ----- | ------ |  -------  | ---- |  ----  |
+| symbol | true | string | 交易对  |  |  |
+| start-date | false | string | 查询开始日期, 日期格式yyyy-mm-dd  |     |    |
+| end-date | false | string | 查询结束日期, 日期格式yyyy-mm-dd  |    |    |
+| states | false | string | 状态 |     |   |
+| from   | false | string | 查询起始 ID  |    |     |
+| direct | false | string | 查询方向     |    | prev 向前，next 向后 |
+| size   | false | string | 查询记录大小  |    |     |
+
+
+响应数据:
+
+| 参数名称 | 是否必须 | 数据类型 | 描述 | 取值范围 |
+|-----|-----|-----|-----|------|
+|   id  |  true  |  long  |  订单号 | |
+|   user-id  |  true  |  long  | 用户ID | |
+|   account-id  |  true  |  long  |  账户ID | |
+|   symbol  |  true  |  string  |  交易对 | |
+|   currency  |  true  |  string  |  币种 | |
+| loan-amount | true |string | 借贷本金总额 | |
+| loan-balance | true | string | 未还本金 | |
+| interest-rate | true | string | 利率 | |
+| interest-amount | true | string | 利息总额 | |
+| interest-balance | true | string | 未还利息 | |
+| created-at | true | long | 借贷发起时间 | |
+| accrued-at | true | long | 最近一次计息时间 | |
+| state | true | string | 订单状态 |created 未放款，accrual 已放款，cleared 已还清，invalid 异常|
+
+请求响应例子:
+
+```
+/* GET /v1/margin/loan-orders?symbol=btcusdt
+
+*/
+{
+  "status": "ok",
+  "data": [
+    {
+      "loan-balance": "0.100000000000000000",
+      "interest-balance": "0.000200000000000000",
+      "interest-rate": "0.002000000000000000",
+      "loan-amount": "0.100000000000000000",
+      "accrued-at": 1511169724531,
+      "interest-amount": "0.000200000000000000",
+      "symbol": "ethbtc",
+      "currency": "btc",
+      "id": 394,
+      "state": "accrual",
+      "account-id": 17747,
+      "user-id": 119913,
+      "created-at": 1511169724531
+    }
+  ]
+}
+
+```
+
+
+#### GET /v1/margin/accounts/balance 借贷账户详情
+
+请求参数
+
+| 参数名称 | 是否必须 | 类型 | 描述 | 默认值 | 取值范围 |
+|-----|-----|-----|-----|-----|-----|
+| symbol | false | string | 交易对，作为get参数  |  |  |
+
+
+响应数据:
+
+| 参数名称 | 是否必须 | 数据类型 | 描述 | 取值范围 |
+|-----|-----|-----|-----|------|
+| symbol  |  true  |  string  |  交易对 | |
+| state  |  true  |  string  |  账户状态 |working,fl-sys,fl-mgt,fl-end |
+| risk-rate | true | object | 风险率 | |
+| fl-price | true | string | 爆仓价 | |
+| list | true | array | 子账户列表 | |
+
+请求响应例子:
+
+```
+/* GET /v1/margin/accounts/balance?symbol=btcusdt
+
+*/
+{
+    "status": "ok",
+    "data": [
+        {
+            "id": 18264,
+            "type": "margin",
+            "state": "working",
+            "symbol": "btcusdt",
+            "fl-price": "0",
+            "fl-type": "safe",
+            "risk-rate": "475.952571086994250554",
+            "list": [
+                {
+                    "currency": "btc",
+                    "type": "trade",
+                    "balance": "1168.533000000000000000"
+                },
+                {
+                    "currency": "btc",
+                    "type": "frozen",
+                    "balance": "0.000000000000000000"
+                },
+                {
+                    "currency": "btc",
+                    "type": "loan",
+                    "balance": "-2.433000000000000000"
+                },
+                {
+                    "currency": "btc",
+                    "type": "interest",
+                    "balance": "-0.000533000000000000"
+                },
+                {
+                    "currency": "usdt",
+                    "type": "trade",//借贷账户可用
+                    "balance": "1313.534000000000000000"
+                },
+                {
+                    "currency": "usdt",
+                    "type": "frozen",//借贷账户冻结
+                    "balance": "0.000000000000000000"
+                },
+                {
+                    "currency": "usdt",
+                    "type": "loan",//已借贷
+                    "balance": "-140.234099999999999920"
+                },
+                {
+                    "currency": "usdt",
+                    "type": "interest",//usdt待还利息
+                    "balance": "-0.931206660000000000"
+                },
+                {
+                    "currency": "btc",
+                    "type": "transfer-out-available",//可转btc
+                    "balance": "1163.872174670000000000"
+                },
+                { "currency": "usdt",
+                    "type": "transfer-out-available",//可转usdt
+                    "balance": "1313.534000000000000000"
+                },
+                {
+                    "currency": "btc",
+                    "type": "loan-available",//可借btc
+                    "balance": "8161.876538350676000000"
+                },
+                {
+                    "currency": "usdt",
+                    "type": "loan-available",//可借usdt
+                    "balance": "49859.765900000000000080"
+                }
+            ]
+        }
+    ]
+}
+
+```
+
+
 
 
 # 错误码
@@ -1392,3 +1658,7 @@ code 的具体解释, 参考对应的 `err-msg`.
 |order-orderstate-error|订单状态错误|
 |order-datelimit-error|查询超出时间限制|
 |order-update-error|订单更新出错|
+
+
+
+
