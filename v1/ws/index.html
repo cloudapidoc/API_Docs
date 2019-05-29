@@ -323,7 +323,7 @@
 
 <p>不需要验签的接口：www.xxxx.com/api</p>
 
-<p>（如果有host的格式问题，请咨询host提供方）</p>
+<aside>（如果有host的格式问题，请咨询host提供方）</aside>
 <h3 id='2'>2. 数据压缩</h3>
 <p>WebSocket API 返回的所有数据都进行了 GZIP 压缩，需要 client 在收到数据之后解压，推荐使用pako。（<a href="https://github.com/nodeca/pako">【pako】</a> 是一个支持压缩和解压 GZIP 的库）</p>
 <h3 id='3-websocket'>3. WebSocket库</h3>
@@ -331,43 +331,40 @@
 <h3 id='4'>4. 心跳</h3>
 <p>WebSocket API 支持双向心跳，无论是 Server 还是 Client 都可以发起 <code>ping</code> message，对方返回 <code>pong</code> message。</p>
 
-<p>WebSocket Server 发送心跳：
-<code>
-{&quot;ping&quot;: 18212558000}
-</code>
- WebSocket Client 应该返回：
-<code>
- {&quot;pong&quot;: 18212558000}
-</code>
-注：返回的数据里面的 <code>&quot;pong&quot;</code> 的值为收到的 <code>&quot;ping&quot;</code> 的值
-注：WebSocket Client 和 WebSocket Server 建立连接之后，WebSocket Server 每隔 <code>5s</code>（这个频率可能会变化） 会向 WebSocket Client 发起一次心跳，WebSocket Client 忽略心跳2次后，WebSocket Server 将会主动断开连接；WebSocket Client发送最近2次心跳message中的其中一个<code>ping</code>的值，WebSocket Server都会保持WebSocket连接。
-<code>
-┌────────┐                         ┌────────┐ 
+<p>WebSocket Server 发送心跳：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="s2">"ping"</span><span class="p">:</span><span class="w"> </span><span class="mi">18212558000</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>WebSocket Client 应该返回：</p>
+<pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="s2">"pong"</span><span class="p">:</span><span class="w"> </span><span class="mi">18212558000</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<aside>注：返回的数据里面的 `"pong"` 的值为收到的 `"ping"` 的值</aside>
+
+<aside>注：WebSocket Client 和 WebSocket Server 建立连接之后，WebSocket Server 每隔 `5s`（这个频率可能会变化） 会向 WebSocket Client 发起一次心跳，WebSocket Client 忽略心跳2次后，WebSocket Server 将会主动断开连接；WebSocket Client发送最近2次心跳message中的其中一个`ping`的值，WebSocket Server都会保持WebSocket连接。</aside>
+<pre class="highlight plaintext"><code>┌────────┐                         ┌────────┐ 
 │ Client │                         │ Server │
 └───┬────┘                         └───┬────┘
-    │         {&quot;ping&quot;: 18212558000}  │
+    │         {"ping": 18212558000}  │
     │&lt;─────────────────────────────────┤
     │                                  │ wait 5s
     │                                  ├───┐
     │                                  │&lt;──┘
-    │         {&quot;ping&quot;: 18212558000}  │
+    │         {"ping": 18212558000}  │
     │&lt;─────────────────────────────────┤
     │                                  │
-    │ {&quot;pong&quot;: 18212558000}          │
+    │ {"pong": 18212558000}          │
     ├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄&gt;│
     │                                  │
-</code>
-注：WebSocket Client 发送最近2次心跳 message 中的其中一个 <code>&quot;ping&quot;</code> 的值，WebSocket Server 都会保持 WebSocket 连接
-```
-┌────────┐                         ┌────────┐ 
+</code></pre>
+<aside>注：WebSocket Client 发送最近2次心跳 message 中的其中一个 `"ping"` 的值，WebSocket Server 都会保持 WebSocket 连接</aside>
+<pre class="highlight plaintext"><code>┌────────┐                         ┌────────┐ 
 │ Client │                         │ Server │
 └───┬────┘                         └───┬────┘
-    │         {&quot;ping&quot;: 1523778470416}  │
+    │         {"ping": 1523778470416}  │
     │&lt;─────────────────────────────────┤
     │                                  │ wait 5s
     │                                  ├───┐
     │                                  │&lt;──┘
-    │         {&quot;ping&quot;: 1523778475416}  │
+    │         {"ping": 1523778475416}  │
     │&lt;─────────────────────────────────┤
     │                                  │ wait 5s
     │                                  ├───┐
@@ -376,39 +373,37 @@
     │                                  │ close WebSocket connection
     │                                  ├───┐
     │                                  │&lt;──┘
-    │                                  │</p>
-<pre class="highlight plaintext"><code>注：WebSocket Client 忽略心跳2次后，WebSocket Server 将会主动断开连接。
-WebSocket Client 发送心跳：
-```json
-{"ping": 18212553000}
+    │                                  │
+
 </code></pre>
-<p>注：发送的 message 里面，&quot;ping&quot; 的值必须为 Long 类型，否则返回错误信息：
-<code>json
-{
-  &quot;ts&quot;: 1492420473027,
-  &quot;status&quot;: &quot;error&quot;,
-  &quot;err-code&quot;: &quot;bad-request&quot;,
-  &quot;err-msg&quot;: &quot;invalid ping&quot;
-}
-</code></p>
+<aside>注：WebSocket Client 忽略心跳2次后，WebSocket Server 将会主动断开连接。</aside>
 
-<p>WebSocket Server 会返回：
-<code>
-{&quot;pong&quot;: 18212553000}
-</code>
-注：返回的数据里面的 <code>&quot;pong&quot;</code> 的值为收到的 <code>&quot;ping&quot;</code> 的值</p>
+<p>WebSocket Client 发送心跳：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="s2">"ping"</span><span class="p">:</span><span class="w"> </span><span class="mi">18212553000</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<aside>注：发送的 message 里面，"ping" 的值必须为 Long 类型，否则返回错误信息：</aside>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1492420473027</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad-request"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid ping"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>WebSocket Server 会返回：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="s2">"pong"</span><span class="p">:</span><span class="w"> </span><span class="mi">18212553000</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<aside>注：返回的数据里面的 `"pong"` 的值为收到的 `"ping"` 的值</aside>
 
-<p>错误信息返回格式
-<code>
-{
-  &quot;id&quot;: &quot;id generate by client&quot;,
-  &quot;status&quot;: &quot;error&quot;,
-  &quot;err-code&quot;: &quot;err-code&quot;,
-  &quot;err-msg&quot;: &quot;err-message&quot;,
-  &quot;ts&quot;: 1487152091345
-}
-</code>
-注：<code>ts</code>为错误信息生成的时间戳，单位：毫秒</p>
+<p>错误信息返回格式</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id generate by client"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"err-code"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"err-message"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1487152091345</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<aside>注：`ts`为错误信息生成的时间戳，单位：毫秒</aside>
 <h3 id='5-topic'>5. topic格式</h3>
 <p>订阅数据和请求数据都要使用 <code>topic</code>，<code>topic</code> 的语法如下：</p>
 
@@ -473,53 +468,49 @@ WebSocket Client 发送心跳：
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id10"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>返回数据的例子：
-<code>json
-{
-  &quot;status&quot;: &quot;ok&quot;,
-  &quot;rep&quot;: &quot;market.btcusdt.kline.1min&quot;,
-  &quot;tick&quot;: [
-    {
-      &quot;amount&quot;: 1.6206,
-      &quot;count&quot;:  3,
-      &quot;id&quot;:     1494465840,
-      &quot;open&quot;:   9887.00,
-      &quot;close&quot;:  9885.00,
-      &quot;low&quot;:    9885.00,
-      &quot;high&quot;:   9887.00,
-      &quot;vol&quot;:    16021.632026
-    },
-    {
-      &quot;amount&quot;: 2.2124,
-      &quot;count&quot;:  6,
-      &quot;id&quot;:     1494465900,
-      &quot;open&quot;:   9885.00,
-      &quot;close&quot;:  9880.00,
-      &quot;low&quot;:    9880.00,
-      &quot;high&quot;:   9885.00,
-      &quot;vol&quot;:    21859.023500
-    }
-  ]
-}
-</code></p>
-
+<p>返回数据的例子：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"rep"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tick"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.6206</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"count"</span><span class="p">:</span><span class="w">  </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w">     </span><span class="mi">1494465840</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"open"</span><span class="p">:</span><span class="w">   </span><span class="mf">9887.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"close"</span><span class="p">:</span><span class="w">  </span><span class="mf">9885.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"low"</span><span class="p">:</span><span class="w">    </span><span class="mf">9885.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"high"</span><span class="p">:</span><span class="w">   </span><span class="mf">9887.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"vol"</span><span class="p">:</span><span class="w">    </span><span class="mf">16021.632026</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.2124</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"count"</span><span class="p">:</span><span class="w">  </span><span class="mi">6</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w">     </span><span class="mi">1494465900</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"open"</span><span class="p">:</span><span class="w">   </span><span class="mf">9885.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"close"</span><span class="p">:</span><span class="w">  </span><span class="mf">9880.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"low"</span><span class="p">:</span><span class="w">    </span><span class="mf">9880.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"high"</span><span class="p">:</span><span class="w">   </span><span class="mf">9885.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"vol"</span><span class="p">:</span><span class="w">    </span><span class="mf">21859.023500</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <p><strong>错误请求数据的例子</strong></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"req"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.invalidsymbo.kline.1min"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id10"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>返回的错误信息的例子：
-<code>json
-{
-  &quot;status&quot;: &quot;error&quot;,
-  &quot;id&quot;: &quot;id10&quot;,
-  &quot;err-code&quot;: &quot;bad-request&quot;,
-  &quot;err-msg&quot;: &quot;invalid topic market.invalidsymbol.trade.detail&quot;,
-  &quot;ts&quot;: 1494483996521
-}
-</code></p>
-<h3 id='7-sub'>7. 订阅数据(sub)</h3><h4 id='sub'>订阅数据(sub)以及接收订阅数据的大致流程</h4><pre class="highlight plaintext"><code>┌────────┐                         ┌────────┐ 
+<p>返回的错误信息的例子：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id10"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad-request"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid topic market.invalidsymbol.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494483996521</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='7-sub'>7. 订阅数据(sub)</h3><h4 id='sub'>订阅数据(sub)以及接收订阅数据的大致流程</h4><pre class="highlight plaintext"><code>┌────────┐                         ┌────────┐ 
 │ Client │                         │ Server │
 └───┬────┘                         └───┬────┘
     │ {"sub": "topic"}                 │
@@ -535,57 +526,56 @@ WebSocket Client 发送心跳：
     │&lt;┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┤
     │                                  │
 </code></pre>
-<p>注：订阅 topic 成功之后，当 topic 对应的数据有更新时，Server 按一定的频率把 topic 对应的新数据推送给 Client</p>
+<aside>注：订阅 topic 成功之后，当 topic 对应的数据有更新时，Server 按一定的频率把 topic 对应的新数据推送给 Client</aside>
 <h4 id='4544b36043'>订阅数据的格式</h4>
-<p>成功建立和 WebSocket API 的连接之后，向 Server 发送如下格式的数据来订阅数据：
-<code>json
-{
-   &quot;id&quot;: &quot;id generate by client&quot;,
-  &quot;sub&quot;: &quot;topic to sub&quot;,
-  &quot;freq-ms&quot;: 1000
-}
-</code>
-注：<code>id</code> 参数是可选的
-注：<code>freq-ms</code> 参数是可选的，可选值为 { <code>1000</code>, <code>2000</code>, <code>3000</code>, <code>4000</code>, <code>5000</code> }，不传 <code>freq-ms</code> 时默认为<code>0</code>也就是有新的数据就马上推送到 Client，<code>freq-ms</code> 决定 Server 推送的频率
-<strong>正确订阅的例子</strong></p>
+<p>成功建立和 WebSocket API 的连接之后，向 Server 发送如下格式的数据来订阅数据：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id generate by client"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"topic to sub"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"freq-ms"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<aside>注：`id` 参数是可选的</aside>
 
-<p>正确订阅：
-<code>json
-{
-  &quot;sub&quot;: &quot;market.btcusdt.kline.1min&quot;,
-  &quot;id&quot;: &quot;id1&quot;
-}
-</code>
-* <code>&quot;sub&quot;</code> 的值为 <strong>topic</strong> ，请参考 <code>&quot;5. topic格式&quot;</code> 的 <strong>topic 格式</strong></p>
+<aside>注：`freq-ms` 参数是可选的，可选值为 { `1000`, `2000`, `3000`, `4000`, `5000` }，不传 `freq-ms` 时默认为` 0 `也就是有新的数据就马上推送到 Client，`freq-ms` 决定 Server 推送的频率</aside>
 
-<p>订阅成功返回数据的例子：
-<code>json
-{
-  &quot;id&quot;: &quot;id1&quot;,
-  &quot;status&quot;: &quot;ok&quot;,
-  &quot;subbed&quot;: &quot;market.btcusdt.kline.1min&quot;,
-  &quot;ts&quot;: 1489474081631
-}
-</code></p>
+<p><strong>正确订阅的例子</strong></p>
 
-<p>之后每当 KLine 有更新时，client 会收到数据，例子：
-<code>json
-{
-  &quot;ch&quot;: &quot;market.btcusdt.kline.1min&quot;,
-  &quot;ts&quot;: 1489474082831,
-  &quot;tick&quot;: {
-    &quot;id&quot;: 1489464480,
-    &quot;amount&quot;: 0.0,
-    &quot;count&quot;: 0,
-    &quot;open&quot;: 7962.62,
-    &quot;close&quot;: 7962.62,
-    &quot;low&quot;: 7962.62,
-    &quot;high&quot;: 7962.62,
-    &quot;vol&quot;: 0.0
-  }
-}
-</code>
-tick 说明: </p>
+<p>正确订阅：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<ul>
+<li><code>&quot;sub&quot;</code> 的值为 <strong>topic</strong> ，请参考 <code>&quot;5. topic格式&quot;</code> 的 <strong>topic 格式</strong></li>
+</ul>
+
+<p>订阅成功返回数据的例子：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"subbed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489474081631</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>之后每当 KLine 有更新时，client 会收到数据，例子：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489474082831</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tick"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489464480</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"open"</span><span class="p">:</span><span class="w"> </span><span class="mf">7962.62</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"close"</span><span class="p">:</span><span class="w"> </span><span class="mf">7962.62</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"low"</span><span class="p">:</span><span class="w"> </span><span class="mf">7962.62</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"high"</span><span class="p">:</span><span class="w"> </span><span class="mf">7962.62</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"vol"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>tick 说明: </p>
 <pre class="highlight plaintext"><code>  "tick": {
     "id": K线id,
     "amount": 成交量,
@@ -600,43 +590,36 @@ tick 说明: </p>
 </code></pre>
 <p><strong>错误订阅的例子</strong></p>
 
-<p>错误订阅（错误的 symbol）：
-<code>
-{
-  &quot;sub&quot;: &quot;market.invalidsymbol.kline.1min&quot;,
-  &quot;id&quot;: &quot;id2&quot;
-}
-</code></p>
-
-<p>订阅失败返回数据的例子：
-<code>json
-{
-  &quot;id&quot;: &quot;id2&quot;,
-  &quot;status&quot;: &quot;error&quot;,
-  &quot;err-code&quot;: &quot;bad-request&quot;,
-  &quot;err-msg&quot;: &quot;invalid topic market.invalidsymbol.kline.1min&quot;,
-  &quot;ts&quot;: 1494301904959
-}
-</code></p>
-
-<p>错误订阅（错误的 topic）：
-<code>json
-{
-  &quot;sub&quot;: &quot;market.btcusdt.kline.3min&quot;,
-  &quot;id&quot;: &quot;id3&quot;
-}
-</code>
-订阅失败返回数据的例子：
-<code>json
-{
-  &quot;id&quot;: &quot;id3&quot;,
-  &quot;status&quot;: &quot;error&quot;,
-  &quot;err-code&quot;: &quot;bad-request&quot;,
-  &quot;err-msg&quot;: &quot;invalid topic market.btcusdt.kline.3min&quot;,
-  &quot;ts&quot;: 1494310283622
-}
-</code></p>
-<h3 id='8-unsub'>8. 取消订阅(unsub)</h3><h4 id='cae816646c'>取消订阅的格式</h4>
+<p>错误订阅（错误的 symbol）：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.invalidsymbol.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id2"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>订阅失败返回数据的例子：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id2"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad-request"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid topic market.invalidsymbol.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494301904959</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>错误订阅（错误的 topic）：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.kline.3min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id3"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>订阅失败返回数据的例子：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id3"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad-request"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid topic market.btcusdt.kline.3min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494310283622</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='8-unsub'>8. 取消订阅(unsub)</h3><h4 id='cae816646c'>取消订阅的格式</h4>
 <p>WebSocket Client 订阅数据之后，可以取消订阅，取消订阅之后 WebSocket Server 将不会再发送该 topic 的数据，取消订阅的格式如下：</p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"unsub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"topic to unsub"</span><span class="p">,</span><span class="w">
@@ -645,71 +628,58 @@ tick 说明: </p>
 </span></code></pre>
 <p><strong>正确取消订阅的例子</strong></p>
 
-<p>正确取消订阅的例子：
-<code>json
-{
-  &quot;unsub&quot;: &quot;market.btcusdt.trade.detail&quot;,
-  &quot;id&quot;: &quot;id4&quot;
-}
-</code></p>
-
-<p>取消订阅成功返回信息的例子：
-<code>json
-{
-  &quot;id&quot;: &quot;id4&quot;,
-  &quot;status&quot;: &quot;ok&quot;,
-  &quot;unsubbed&quot;: &quot;market.btcusdt.trade.detail&quot;,
-  &quot;ts&quot;: 1494326028889
-}
-</code></p>
-
+<p>正确取消订阅的例子：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"unsub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id4"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>取消订阅成功返回信息的例子：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id4"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"unsubbed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494326028889</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <p><strong>错误取消订阅的例子</strong></p>
 
-<p>错误取消订阅的例子（取消订阅一个尚未订阅的 topic）：
-<code>json
-{
-  &quot;unsub&quot;: &quot;market.btcusdt.trade.detail&quot;,
-  &quot;id&quot;: &quot;id5&quot;
-}
-</code></p>
-
-<p>返回的错误信息的例子
-<code>json
-{
-  &quot;id&quot;: &quot;id5&quot;,
-  &quot;status&quot;: &quot;error&quot;,
-  &quot;err-code&quot;: &quot;bad-request&quot;,
-  &quot;err-msg&quot;: &quot;unsub with not subbed topic market.btcusdt.trade.detail&quot;,
-  &quot;ts&quot;: 1494326217428
-}
-</code></p>
-
-<p>错误取消订阅的例子（取消订阅一个不存在的 topic）：
-<code>json
-{
-  &quot;unsub&quot;: &quot;not-exists-topic&quot;,
-  &quot;id&quot;: &quot;id5&quot;
-}
-</code>
-返回的错误信息的例子：
-<code>json
-{
-  &quot;id&quot;: &quot;id5&quot;,
-  &quot;status&quot;: &quot;error&quot;,
-  &quot;err-code&quot;: &quot;bad-request&quot;,
-  &quot;err-msg&quot;: &quot;unsub with not subbed topic not-exists-topic&quot;,
-  &quot;ts&quot;: 1494326318809
-}
-</code></p>
-<h1 id='websocket-api-reference'>WebSocket API Reference</h1><h2 id='kline-market-symbol-kline-period'>订阅 KLine 数据 market.$symbol.kline.$period</h2>
-<p>成功建立和 WebSocket API 的连接之后，向 Server 发送如下格式的数据来订阅数据：
-<code>json
-{
-  &quot;sub&quot;: &quot;market.$symbol.kline.$period&quot;,
-  &quot;id&quot;: &quot;id generate by client&quot;
-}
-</code></p>
-
+<p>错误取消订阅的例子（取消订阅一个尚未订阅的 topic）：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"unsub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id5"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>返回的错误信息的例子</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id5"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad-request"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unsub with not subbed topic market.btcusdt.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494326217428</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>错误取消订阅的例子（取消订阅一个不存在的 topic）：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"unsub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"not-exists-topic"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id5"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>返回的错误信息的例子：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id5"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad-request"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unsub with not subbed topic not-exists-topic"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494326318809</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h1 id='websocket-api-reference'>WebSocket API Reference</h1><h2 id='kline-market-symbol-kline-period'>订阅 KLine 数据 market.$symbol.kline.$period</h2>
+<p>成功建立和 WebSocket API 的连接之后，向 Server 发送如下格式的数据来订阅数据：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.$symbol.kline.$period"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id generate by client"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <table><thead>
 <tr>
 <th>参数名称</th>
@@ -740,100 +710,87 @@ tick 说明: </p>
 
 <p><strong>正确订阅的例子</strong></p>
 
-<p>正确订阅
-<code>
-{
-  &quot;sub&quot;: &quot;market.btcusdt.kline.1min&quot;,
-  &quot;id&quot;: &quot;id1&quot;
-}
-</code></p>
-
-<p>订阅成功返回数据的例子
-<code>
-{
-  &quot;id&quot;: &quot;id1&quot;,
-  &quot;status&quot;: &quot;ok&quot;,
-  &quot;subbed&quot;: &quot;market.btcusdt.kline.1min&quot;,
-  &quot;ts&quot;: 1489474081631
-}
-</code></p>
-
-<p>之后每当 KLine 有更新时，client 会收到数据，例子
-<code>json
-{
-  &quot;ch&quot;: &quot;market.btcusdt.kline.1min&quot;,
-  &quot;ts&quot;: 1489474082831,
-  &quot;tick&quot;: {
-    &quot;id&quot;: 1489464480,
-    &quot;amount&quot;: 0.0,
-    &quot;count&quot;: 0,
-    &quot;open&quot;: 7962.62,
-    &quot;close&quot;: 7962.62,
-    &quot;low&quot;: 7962.62,
-    &quot;high&quot;: 7962.62,
-    &quot;vol&quot;: 0.0
+<p>正确订阅</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>订阅成功返回数据的例子</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"subbed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489474081631</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>之后每当 KLine 有更新时，client 会收到数据，例子</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489474082831</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tick"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489464480</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"open"</span><span class="p">:</span><span class="w"> </span><span class="mf">7962.62</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"close"</span><span class="p">:</span><span class="w"> </span><span class="mf">7962.62</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"low"</span><span class="p">:</span><span class="w"> </span><span class="mf">7962.62</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"high"</span><span class="p">:</span><span class="w"> </span><span class="mf">7962.62</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"vol"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>tick 说明</p>
+<pre class="highlight plaintext"><code>  "tick": {
+    "id": K线id,
+    "amount": 成交量,
+    "count": 成交笔数,
+    "open": 开盘价,
+    "close": 收盘价,当K线为最晚的一根时，是最新成交价
+    "low": 最低价,
+    "high": 最高价,
+    "vol": 成交额, 即 sum(每一笔成交价 * 该笔的成交量)
   }
-}
-</code></p>
 
-<p>tick 说明
-```
-  &quot;tick&quot;: {
-    &quot;id&quot;: K线id,
-    &quot;amount&quot;: 成交量,
-    &quot;count&quot;: 成交笔数,
-    &quot;open&quot;: 开盘价,
-    &quot;close&quot;: 收盘价,当K线为最晚的一根时，是最新成交价
-    &quot;low&quot;: 最低价,
-    &quot;high&quot;: 最高价,
-    &quot;vol&quot;: 成交额, 即 sum(每一笔成交价 * 该笔的成交量)
-  }</p>
-<pre class="highlight plaintext"><code>
-**错误订阅的例子**
-
-错误订阅(错误的 symbol)
-```json
-{
-  "sub": "market.invalidsymbol.kline.1min",
-  "id": "id2"
-}
 </code></pre>
-<p>订阅失败返回数据的例子
-<code>json
-{
-  &quot;id&quot;: &quot;id2&quot;,
-  &quot;status&quot;: &quot;error&quot;,
-  &quot;err-code&quot;: &quot;bad-request&quot;,
-  &quot;err-msg&quot;: &quot;invalid topic market.invalidsymbol.kline.1min&quot;,
-  &quot;ts&quot;: 1494301904959
-}
-</code></p>
+<p><strong>错误订阅的例子</strong></p>
 
-<p>错误订阅(错误的 topic)
-<code>
-{
-  &quot;sub&quot;: &quot;market.btcusdt.kline.3min&quot;,
-  &quot;id&quot;: &quot;id3&quot;
-}
-</code></p>
-
-<p>订阅失败返回数据的例子
-<code>json
-{
-  &quot;id&quot;: &quot;id3&quot;,
-  &quot;status&quot;: &quot;error&quot;,
-  &quot;err-code&quot;: &quot;bad-request&quot;,
-  &quot;err-msg&quot;: &quot;invalid topic market.btcusdt.kline.3min&quot;,
-  &quot;ts&quot;: 1494310283622
-}
-</code></p>
-<h2 id='kline-market-symbol-kline-period-2'>请求 KLine 数据 market.$symbol.kline.$period</h2><pre class="highlight plaintext"><code>{
-  "req": "market.$symbol.kline.$period",
-  "id": "id generated by client",
-  "from": 1533536947, //optional, type: long, 2017-07-28T00:00:00+08:00 至 2050-01-01T00:00:00+08:00 之间的时间点，单位：秒
-  "to": 1533536947 //optional, type: long, 2017-07-28T00:00:00+08:00 至 2050-01-01T00:00:00+08:00 之间的时间点，单位：秒，必须比 from 大
-}
-</code></pre>
+<p>错误订阅(错误的 symbol)</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.invalidsymbol.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id2"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>订阅失败返回数据的例子</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id2"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad-request"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid topic market.invalidsymbol.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494301904959</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>错误订阅(错误的 topic)</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.kline.3min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id3"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>订阅失败返回数据的例子</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id3"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad-request"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"err-msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid topic market.btcusdt.kline.3min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1494310283622</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='kline-market-symbol-kline-period-2'>请求 KLine 数据 market.$symbol.kline.$period</h2><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"req"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.$symbol.kline.$period"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id generated by client"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"from"</span><span class="p">:</span><span class="w"> </span><span class="mi">1533536947</span><span class="p">,</span><span class="w"> </span><span class="err">//optional</span><span class="p">,</span><span class="w"> </span><span class="err">type</span><span class="p">:</span><span class="w"> </span><span class="err">long</span><span class="p">,</span><span class="w"> </span><span class="mi">2017-07-28</span><span class="err">T</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="err">+</span><span class="mi">08</span><span class="p">:</span><span class="mi">00</span><span class="w"> </span><span class="err">至</span><span class="w"> </span><span class="mi">2050-01-01</span><span class="err">T</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="err">+</span><span class="mi">08</span><span class="p">:</span><span class="mi">00</span><span class="w"> </span><span class="err">之间的时间点，单位：秒</span><span class="w">
+  </span><span class="s2">"to"</span><span class="p">:</span><span class="w"> </span><span class="mi">1533536947</span><span class="w"> </span><span class="err">//optional</span><span class="p">,</span><span class="w"> </span><span class="err">type</span><span class="p">:</span><span class="w"> </span><span class="err">long</span><span class="p">,</span><span class="w"> </span><span class="mi">2017-07-28</span><span class="err">T</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="err">+</span><span class="mi">08</span><span class="p">:</span><span class="mi">00</span><span class="w"> </span><span class="err">至</span><span class="w"> </span><span class="mi">2050-01-01</span><span class="err">T</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="err">+</span><span class="mi">08</span><span class="p">:</span><span class="mi">00</span><span class="w"> </span><span class="err">之间的时间点，单位：秒，必须比</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="err">大</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <table><thead>
 <tr>
 <th>参数名称</th>
@@ -861,51 +818,47 @@ tick 说明: </p>
 <td>1min, 5min, 15min, 30min, 60min, 1day, 1mon, 1week, 1year</td>
 </tr>
 </tbody></table>
-<h4 id='kline'>请求 KLine 数据的例子</h4><pre class="highlight plaintext"><code>{
-  "req": "market.btcusdt.kline.1min",
-  "id": "id10"
-}
-</code></pre>
-<p>返回数据的例子
-<code>
-{
-  &quot;rep&quot;: &quot;market.btcusdt.kline.1min&quot;,
-  &quot;status&quot;: &quot;ok&quot;,
-  &quot;id&quot;: &quot;id10&quot;,
-  &quot;tick&quot;: [
-    {
-      &quot;amount&quot;: 17.4805,
-      &quot;count&quot;:  27,
-      &quot;id&quot;:     1494478080,
-      &quot;open&quot;:   10050.00,
-      &quot;close&quot;:  10058.00,
-      &quot;low&quot;:    10050.00,
-      &quot;high&quot;:   10058.00,
-      &quot;vol&quot;:    175798.757708
-    },
-    {
-      &quot;amount&quot;: 15.7389,
-      &quot;count&quot;:  28,
-      &quot;id&quot;:     1494478140,
-      &quot;open&quot;:   10058.00,
-      &quot;close&quot;:  10060.00,
-      &quot;low&quot;:    10056.00,
-      &quot;high&quot;:   10065.00,
-      &quot;vol&quot;:    158331.348600
-    },
-    // more KLine data here
-  ]
-}
-</code></p>
-<h2 id='market-depth-market-symbol-depth-type'>订阅 Market Depth 数据 market.$symbol.depth.$type</h2>
-<p>成功建立和 WebSocket API 的连接之后，向 Server 发送如下格式的数据来订阅数据：
-<code>
-{
-  &quot;sub&quot;: &quot;market.$symbol.depth.$type&quot;,
-  &quot;id&quot;: &quot;id generated by client&quot;
-}
-</code></p>
-
+<h4 id='kline'>请求 KLine 数据的例子</h4><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"req"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id10"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>返回数据的例子</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"rep"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.kline.1min"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id10"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tick"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">17.4805</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"count"</span><span class="p">:</span><span class="w">  </span><span class="mi">27</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w">     </span><span class="mi">1494478080</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"open"</span><span class="p">:</span><span class="w">   </span><span class="mf">10050.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"close"</span><span class="p">:</span><span class="w">  </span><span class="mf">10058.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"low"</span><span class="p">:</span><span class="w">    </span><span class="mf">10050.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"high"</span><span class="p">:</span><span class="w">   </span><span class="mf">10058.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"vol"</span><span class="p">:</span><span class="w">    </span><span class="mf">175798.757708</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">15.7389</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"count"</span><span class="p">:</span><span class="w">  </span><span class="mi">28</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w">     </span><span class="mi">1494478140</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"open"</span><span class="p">:</span><span class="w">   </span><span class="mf">10058.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"close"</span><span class="p">:</span><span class="w">  </span><span class="mf">10060.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"low"</span><span class="p">:</span><span class="w">    </span><span class="mf">10056.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"high"</span><span class="p">:</span><span class="w">   </span><span class="mf">10065.00</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"vol"</span><span class="p">:</span><span class="w">    </span><span class="mf">158331.348600</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="err">//</span><span class="w"> </span><span class="err">more</span><span class="w"> </span><span class="err">KLine</span><span class="w"> </span><span class="err">data</span><span class="w"> </span><span class="err">here</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='market-depth-market-symbol-depth-type'>订阅 Market Depth 数据 market.$symbol.depth.$type</h2>
+<p>成功建立和 WebSocket API 的连接之后，向 Server 发送如下格式的数据来订阅数据：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.$symbol.depth.$type"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id generated by client"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <table><thead>
 <tr>
 <th>参数名称</th>
@@ -938,44 +891,38 @@ tick 说明: </p>
 <li>用户选择“合并深度”时，一定报价精度内的市场挂单将予以合并显示。合并深度仅改变显示方式，不改变实际成交价格。</li>
 </ul>
 
-<p>正确订阅例子
-<code>
-{
-  &quot;sub&quot;: &quot;market.btcusdt.depth.step0&quot;,
-  &quot;id&quot;: &quot;id1&quot;
-}
-</code></p>
-
-<p>订阅成功返回数据的例子
-<code>
-{
-  &quot;id&quot;: &quot;id1&quot;,
-  &quot;status&quot;: &quot;ok&quot;,
-  &quot;subbed&quot;: &quot;market.btcusdt.depth.step0&quot;,
-  &quot;ts&quot;: 1489474081631
-}
-</code></p>
-
-<p>之后每当 depth 有更新时，client 会收到数据，例子
-<code>
-{
-  &quot;ch&quot;: &quot;market.btcusdt.depth.step0&quot;,
-  &quot;ts&quot;: 1489474082831,
-  &quot;tick&quot;: {
-    &quot;bids&quot;: [
-    [9999.3900,0.0098], // [price, amount]
-    [9992.5947,0.0560],
-    // more Market Depth data here
-    ]
-    &quot;asks&quot;: [
-    [10010.9800,0.0099]
-    [10011.3900,2.0000]
-    //more data here
-    ]
-  }
-}
-</code></p>
-
+<p>正确订阅例子</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.depth.step0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>订阅成功返回数据的例子</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"subbed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.depth.step0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489474081631</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>之后每当 depth 有更新时，client 会收到数据，例子</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.depth.step0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489474082831</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tick"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"bids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">[</span><span class="mf">9999.3900</span><span class="p">,</span><span class="mf">0.0098</span><span class="p">],</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="p">[</span><span class="err">price</span><span class="p">,</span><span class="w"> </span><span class="err">amount</span><span class="p">]</span><span class="w">
+    </span><span class="p">[</span><span class="mf">9992.5947</span><span class="p">,</span><span class="mf">0.0560</span><span class="p">],</span><span class="w">
+    </span><span class="err">//</span><span class="w"> </span><span class="err">more</span><span class="w"> </span><span class="err">Market</span><span class="w"> </span><span class="err">Depth</span><span class="w"> </span><span class="err">data</span><span class="w"> </span><span class="err">here</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"asks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">[</span><span class="mf">10010.9800</span><span class="p">,</span><span class="mf">0.0099</span><span class="p">]</span><span class="w">
+    </span><span class="p">[</span><span class="mf">10011.3900</span><span class="p">,</span><span class="mf">2.0000</span><span class="p">]</span><span class="w">
+    </span><span class="err">//more</span><span class="w"> </span><span class="err">data</span><span class="w"> </span><span class="err">here</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <p>tick 说明
 <code>
   &quot;tick&quot;: {
@@ -983,7 +930,7 @@ tick 说明: </p>
     [买1价,买1量]
     [买2价,买2量]
     //more data here
-    ]
+    ],
     &quot;asks&quot;: [
     [卖1价,卖1量]
     [卖2价,卖2量]
@@ -991,40 +938,38 @@ tick 说明: </p>
     ]
   }
 </code></p>
-<h2 id='market-depth-market-symbol-depth-type-2'>请求 Market Depth 数据 market.$symbol.depth.$type</h2><pre class="highlight plaintext"><code>{
-  "req": "market.$symbol.depth.$type",
-  "id": "id generated by client"
-}
-</code></pre><h4 id='market-depth'>请求 Market Depth 数据的例子</h4><pre class="highlight plaintext"><code>{
-  "req": "market.btcusdt.depth.step0",
-  "id": "id10"
-}
-</code></pre>
-<p>返回数据的例子：
-<code>
-{
-  &quot;rep&quot;: &quot;market.btcusdt.depth.step0&quot;,
-  &quot;status&quot;: &quot;ok&quot;,
-  &quot;id&quot;: &quot;id10&quot;,
-  &quot;tick&quot;: {
-    &quot;bids&quot;: [
-    [9999.3900,0.0098], // [price, amount]
-    [9992.5947,0.0560],
-    // more Market Depth data here
-    ]
-    &quot;asks&quot;: [
-    [10010.9800,0.0099]
-    [10011.3900,2.0000]
-    //more data here
-    ]
-  }
-}
-</code></p>
-<h2 id='trade-detail-market-symbol-trade-detail'>订阅 Trade Detail 数据 market.$symbol.trade.detail</h2><pre class="highlight plaintext"><code>{
-  "sub": "market.$symbol.trade.detail",
-  "id": "id generated by client"
-}
-</code></pre>
+<h2 id='market-depth-market-symbol-depth-type-2'>请求 Market Depth 数据 market.$symbol.depth.$type</h2><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"req"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.$symbol.depth.$type"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id generated by client"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h4 id='market-depth'>请求 Market Depth 数据的例子</h4><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"req"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.depth.step0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id10"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>返回数据的例子：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"rep"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.depth.step0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id10"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tick"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"bids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">[</span><span class="mf">9999.3900</span><span class="p">,</span><span class="mf">0.0098</span><span class="p">],</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="p">[</span><span class="err">price</span><span class="p">,</span><span class="w"> </span><span class="err">amount</span><span class="p">]</span><span class="w">
+    </span><span class="p">[</span><span class="mf">9992.5947</span><span class="p">,</span><span class="mf">0.0560</span><span class="p">],</span><span class="w">
+    </span><span class="err">//</span><span class="w"> </span><span class="err">more</span><span class="w"> </span><span class="err">Market</span><span class="w"> </span><span class="err">Depth</span><span class="w"> </span><span class="err">data</span><span class="w"> </span><span class="err">here</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"asks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">[</span><span class="mf">10010.9800</span><span class="p">,</span><span class="mf">0.0099</span><span class="p">]</span><span class="w">
+    </span><span class="p">[</span><span class="mf">10011.3900</span><span class="p">,</span><span class="mf">2.0000</span><span class="p">]</span><span class="w">
+    </span><span class="err">//more</span><span class="w"> </span><span class="err">data</span><span class="w"> </span><span class="err">here</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='trade-detail-market-symbol-trade-detail'>订阅 Trade Detail 数据 market.$symbol.trade.detail</h2><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.$symbol.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id generated by client"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <table><thead>
 <tr>
 <th>参数名称</th>
@@ -1046,105 +991,97 @@ tick 说明: </p>
 </tbody></table>
 
 <p>正确订阅例子：</p>
-<pre class="highlight plaintext"><code>{
-  "sub": "market.btcusdt.trade.detail",
-  "id": "id1"
-}
-</code></pre>
-<p>订阅成功返回数据的例子：
-<code>
-{
-  &quot;id&quot;: &quot;id1&quot;,
-  &quot;status&quot;: &quot;ok&quot;,
-  &quot;subbed&quot;: &quot;market.btcusdt.trade.detail&quot;,
-  &quot;ts&quot;: 1489474081631
-}
-</code></p>
-
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>订阅成功返回数据的例子：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"subbed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489474081631</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <p>之后每当 Trade Detail 有更新时，client 会收到数据，例子：</p>
-<pre class="highlight plaintext"><code>{
-  "ch": "market.btcusdt.trade.detail",
-  "ts": 1489474082831,
-  "tick": {
-        "id": 14650745135,
-        "ts": 1533265950234,
-        "data": [
-            {
-                "amount": 0.0099,
-                "ts": 1533265950234,
-                "id": 146507451359183894799,
-                "price": 401.74,
-                "direction": "buy"
-            },
-            // more Trade Detail data here
-        ]
-    }
-
-  ]
-  }
-}
-</code></pre>
-<p>data 说明：
-<code>
-  &quot;data&quot;: [
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1489474082831</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tick"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">14650745135</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1533265950234</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0099</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1533265950234</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">146507451359183894799</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">401.74</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="err">//</span><span class="w"> </span><span class="err">more</span><span class="w"> </span><span class="err">Trade</span><span class="w"> </span><span class="err">Detail</span><span class="w"> </span><span class="err">data</span><span class="w"> </span><span class="err">here</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>data 说明：</p>
+<pre class="highlight plaintext"><code>  "data": [
     {
-      &quot;id&quot;:        消息ID,
-      &quot;price&quot;:     成交价,
-      &quot;time&quot;:      成交时间,
-      &quot;amount&quot;:    成交量,
-      &quot;direction&quot;: 成交方向,
-      &quot;tradeId&quot;:   成交ID,
-      &quot;ts&quot;:        时间戳
+      "id":        消息ID,
+      "price":     成交价,
+      "time":      成交时间,
+      "amount":    成交量,
+      "direction": 成交方向,
+      "tradeId":   成交ID,
+      "ts":        时间戳
     }
   ]
-</code></p>
-<h2 id='trade-detail-market-symbol-trade-detail-2'>请求 Trade Detail 数据 market.$symbol.trade.detail</h2><pre class="highlight plaintext"><code>{
-  "req": "market.$symbol.trade.detail",
-  "id": "id generated by client"
-}
-</code></pre>
+</code></pre><h2 id='trade-detail-market-symbol-trade-detail-2'>请求 Trade Detail 数据 market.$symbol.trade.detail</h2><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"req"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.$symbol.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id generated by client"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <ul>
 <li>仅能获取最近 300 个 Trade Detail 数据</li>
 </ul>
-<h4 id='trade-detail'>请求 Trade Detail 数据的例子</h4><pre class="highlight plaintext"><code>{
-  "req": "market.btcusdt.trade.detail",
-  "id": "id11"
-}
-</code></pre>
-<p>返回数据的例子：
-<code>
-{
-  &quot;rep&quot;: &quot;market.btcusdt.trade.detail&quot;,
-  &quot;status&quot;: &quot;ok&quot;,
-  &quot;id&quot;: &quot;id11&quot;,
-  &quot;data&quot;: [
-    {
-      &quot;id&quot;:        601595424,
-      &quot;price&quot;:     10195.64,
-      &quot;time&quot;:      1494495766,
-      &quot;amount&quot;:    0.2943,
-      &quot;direction&quot;: &quot;buy&quot;,
-      &quot;tradeId&quot;:   601595424,
-      &quot;ts&quot;:        1494495766000
-    },
-    {
-      &quot;id&quot;:        601595423,
-      &quot;price&quot;:     10195.64,
-      &quot;time&quot;:      1494495711,
-      &quot;amount&quot;:    0.2430,
-      &quot;direction&quot;: &quot;buy&quot;,
-      &quot;tradeId&quot;:   601595423,
-      &quot;ts&quot;:        1494495711000
-    },
-    // more Trade Detail data here
-  ]
-}
-</code></p>
-<h2 id='market-detail-market-symbol-detail'>请求 Market Detail 数据 market.$symbol.detail</h2><pre class="highlight plaintext"><code>{
-  "req": "market.$symbol.detail",
-  "id": "id generated by client"
-}
-</code></pre>
+<h4 id='trade-detail'>请求 Trade Detail 数据的例子</h4><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"req"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id11"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>返回数据的例子：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"rep"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.trade.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id11"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w">        </span><span class="mi">601595424</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w">     </span><span class="mf">10195.64</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"time"</span><span class="p">:</span><span class="w">      </span><span class="mi">1494495766</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w">    </span><span class="mf">0.2943</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tradeId"</span><span class="p">:</span><span class="w">   </span><span class="mi">601595424</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ts"</span><span class="p">:</span><span class="w">        </span><span class="mi">1494495766000</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w">        </span><span class="mi">601595423</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w">     </span><span class="mf">10195.64</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"time"</span><span class="p">:</span><span class="w">      </span><span class="mi">1494495711</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w">    </span><span class="mf">0.2430</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tradeId"</span><span class="p">:</span><span class="w">   </span><span class="mi">601595423</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ts"</span><span class="p">:</span><span class="w">        </span><span class="mi">1494495711000</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="err">//</span><span class="w"> </span><span class="err">more</span><span class="w"> </span><span class="err">Trade</span><span class="w"> </span><span class="err">Detail</span><span class="w"> </span><span class="err">data</span><span class="w"> </span><span class="err">here</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='market-detail-market-symbol-detail'>请求 Market Detail 数据 market.$symbol.detail</h2><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"req"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.$symbol.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id generated by client"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <ul>
 <li>仅返回当前 Market Detail</li>
 </ul>
@@ -1153,26 +1090,24 @@ tick 说明: </p>
   "id": "id12"
 }
 </code></pre>
-<p>返回数据的例子：
-<code>json
-{
-  &quot;rep&quot;: &quot;market.btcusdt.detail&quot;,
-  &quot;status&quot;: &quot;ok&quot;,
-  &quot;id&quot;: &quot;id12&quot;,
-  &quot;tick&quot;: {
-    &quot;amount&quot;: 12224.2922,
-    &quot;open&quot;:   9790.52,
-    &quot;close&quot;:  10195.00,
-    &quot;high&quot;:   10300.00,
-    &quot;ts&quot;:     1494496390000,
-    &quot;id&quot;:     1494496390,
-    &quot;count&quot;:  15195,
-    &quot;low&quot;:    9657.00,
-    &quot;vol&quot;:    121906001.754751
-  }
-}
-</code></p>
-
+<p>返回数据的例子：</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"rep"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market.btcusdt.detail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id12"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tick"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">12224.2922</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"open"</span><span class="p">:</span><span class="w">   </span><span class="mf">9790.52</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"close"</span><span class="p">:</span><span class="w">  </span><span class="mf">10195.00</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"high"</span><span class="p">:</span><span class="w">   </span><span class="mf">10300.00</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ts"</span><span class="p">:</span><span class="w">     </span><span class="mi">1494496390000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w">     </span><span class="mi">1494496390</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="w">  </span><span class="mi">15195</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"low"</span><span class="p">:</span><span class="w">    </span><span class="mf">9657.00</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"vol"</span><span class="p">:</span><span class="w">    </span><span class="mf">121906001.754751</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <p><br>
 <br>
 <br>
