@@ -34,7 +34,10 @@ WebSocket协议是基于TCP的一种新的网络协议。它实现了客户端�
 
 不需要验签的接口：www.xxxx.com/api
 
-<aside>（如果有host的格式问题，请咨询host提供方）</aside>
+<aside class="notice">
+（如果有host的格式问题，请咨询host提供方）
+</aside>
+
 
 ### 2. 数据压缩
 WebSocket API 返回的所有数据都进行了 GZIP 压缩，需要 client 在收到数据之后解压，推荐使用pako。（[【pako】](https://github.com/nodeca/pako) 是一个支持压缩和解压 GZIP 的库）
@@ -57,27 +60,36 @@ WebSocket Server 发送心跳：
  {"pong": 18212558000}
 ```
 
-<aside>注：返回的数据里面的 `"pong"` 的值为收到的 `"ping"` 的值</aside>
-<aside>注：WebSocket Client 和 WebSocket Server 建立连接之后，WebSocket Server 每隔 `5s`（这个频率可能会变化） 会向 WebSocket Client 发起一次心跳，WebSocket Client 忽略心跳2次后，WebSocket Server 将会主动断开连接；WebSocket Client发送最近2次心跳message中的其中一个`ping`的值，WebSocket Server都会保持WebSocket连接。</aside>
+<aside class="notice">
+注：返回的数据里面的 `"pong"` 的值为收到的 `"ping"` 的值
+</aside>
+
+<aside class="notice">
+注：WebSocket Client 和 WebSocket Server 建立连接之后，WebSocket Server 每隔 `5s`（这个频率可能会变化） 会向 WebSocket Client 发起一次心跳，WebSocket Client 忽略心跳2次后，WebSocket Server 将会主动断开连接；WebSocket Client发送最近2次心跳message中的其中一个`ping`的值，WebSocket Server都会保持WebSocket连接。
+</aside>
+
 
 ```
 ┌────────┐                         ┌────────┐ 
 │ Client │                         │ Server │
 └───┬────┘                         └───┬────┘
-    │         {"ping": 18212558000}  │
+    │         {"ping": 18212558000}    │
     │<─────────────────────────────────┤
     │                                  │ wait 5s
     │                                  ├───┐
     │                                  │<──┘
-    │         {"ping": 18212558000}  │
+    │         {"ping": 18212558000}    │
     │<─────────────────────────────────┤
     │                                  │
-    │ {"pong": 18212558000}          │
+    │ {"pong": 18212558000}            │
     ├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄>│
     │                                  │
 ```
 
-<aside>注：WebSocket Client 发送最近2次心跳 message 中的其中一个 `"ping"` 的值，WebSocket Server 都会保持 WebSocket 连接</aside>
+<aside class="notice">
+注：WebSocket Client 发送最近2次心跳 message 中的其中一个 `"ping"` 的值，WebSocket Server 都会保持 WebSocket 连接
+</aside>
+
 
 ```
 ┌────────┐                         ┌────────┐ 
@@ -101,7 +113,10 @@ WebSocket Server 发送心跳：
 
 ```
 
-<aside>注：WebSocket Client 忽略心跳2次后，WebSocket Server 将会主动断开连接。</aside>
+<aside class="notice">
+注：WebSocket Client 忽略心跳2次后，WebSocket Server 将会主动断开连接。
+</aside>
+
 
 WebSocket Client 发送心跳：
 
@@ -109,7 +124,10 @@ WebSocket Client 发送心跳：
 {"ping": 18212553000}
 ```
 
-<aside>注：发送的 message 里面，"ping" 的值必须为 Long 类型，否则返回错误信息：</aside>
+<aside class="notice">
+注：发送的 message 里面，"ping" 的值必须为 Long 类型，否则返回错误信息：
+</aside>
+
 
 ```json
 {
@@ -125,7 +143,10 @@ WebSocket Server 会返回：
 ```json
 {"pong": 18212553000}
 ```
-<aside>注：返回的数据里面的 `"pong"` 的值为收到的 `"ping"` 的值</aside>
+<aside class="notice">
+注：返回的数据里面的 `"pong"` 的值为收到的 `"ping"` 的值
+</aside>
+
 
 错误信息返回格式
 
@@ -139,7 +160,10 @@ WebSocket Server 会返回：
 }
 ```
 
-<aside>注：`ts`为错误信息生成的时间戳，单位：毫秒</aside>
+<aside class="notice">
+注：`ts`为错误信息生成的时间戳，单位：毫秒
+</aside>
+
 
 ### 5. topic格式
 
@@ -255,7 +279,10 @@ WebSocket Server 会返回：
     │                                  │
 ```
 
-<aside>注：订阅 topic 成功之后，当 topic 对应的数据有更新时，Server 按一定的频率把 topic 对应的新数据推送给 Client</aside>
+<aside class="notice">
+注：订阅 topic 成功之后，当 topic 对应的数据有更新时，Server 按一定的频率把 topic 对应的新数据推送给 Client
+</aside>
+
 
 #### 订阅数据的格式
 
@@ -269,8 +296,14 @@ WebSocket Server 会返回：
 }
 ```
 
-<aside>注：`id` 参数是可选的</aside>
-<aside>注：`freq-ms` 参数是可选的，可选值为 { `1000`, `2000`, `3000`, `4000`, `5000` }，不传 `freq-ms` 时默认为` 0 `也就是有新的数据就马上推送到 Client，`freq-ms` 决定 Server 推送的频率</aside>
+<aside class="notice">
+注：`id` 参数是可选的
+</aside>
+
+<aside class="notice">
+注：`freq-ms` 参数是可选的，可选值为 { `1000`, `2000`, `3000`, `4000`, `5000` }，不传 `freq-ms` 时默认为` 0 `也就是有新的数据就马上推送到 Client，`freq-ms` 决定 Server 推送的频率
+</aside>
+
 
 **正确订阅的例子**
 
