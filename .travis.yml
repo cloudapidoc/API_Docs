@@ -1,0 +1,16 @@
+sudo: false
+
+language: ruby
+
+rvm:
+  - 2.4.0
+
+branches:
+  only:
+    - v1_rest
+    - v1_ws
+
+cache: bundler
+
+script: 
+  - ./deploy.sh
