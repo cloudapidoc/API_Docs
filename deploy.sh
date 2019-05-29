@@ -169,9 +169,9 @@ main() {
 }
 
 handle_deploy_files() {
-  if [ -d "$gh_pages_directory/$version/$language" ]; then
-    rm -rf $gh_pages_directory/$version/$language
-  fi
+  # if [ -d "$gh_pages_directory/$version/$language" ]; then
+  #   rm -rf $gh_pages_directory/$version/$language
+  # fi
   cp -r $build_directory/* $gh_pages_directory
 }
 
