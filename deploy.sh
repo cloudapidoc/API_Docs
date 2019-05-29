@@ -21,12 +21,9 @@ Options:
 
 
 run_build() {
-  if [[ $version != dm ]]; then
-    version="v"${version}
-    build_dir=$build_directory/spot/$version/$language
-  else
-    build_dir=$build_directory/dm/v1/$language
-  fi
+  version="v"${version}
+  build_dir=$build_directory/spot/$version/$language
+  
   echo "build_dir="$build_dir
   bundle exec middleman build --clean --build-dir $build_dir
 }
