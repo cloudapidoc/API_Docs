@@ -29,6 +29,7 @@ API实现程序化交易。
 **重要提示：这两个密钥与账号安全紧密相关，无论何时都请勿向其它人透露。**
 
 ## 合法请求结构
+
 基于安全考虑，除行情API 外的 API 请求都必须进行签名运算。一个合法的请求由以下几部分组成：
 
 * 方法请求地址 即访问服务器地址：HOST+/api+方法名，比如{HOST}/api/v1/order/orders。
@@ -48,6 +49,7 @@ API实现程序化交易。
 * 签名 签名计算得出的值，用于确保签名有效和未被篡改。
 
 例：
+
 ```
 https://{HOST}/api/v1/order/orders?
 AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
@@ -57,7 +59,9 @@ AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
 &order-id=1234567890
 &Signature=calculated value
 ```
+
 # 签名运算
+
 API 请求在通过 Internet 发送的过程中极有可能被篡改。为了确保请求未被更改，我们会要求用户在每个请求中带上签名（行情 API 除外），来校验参数或参数值在传输途中是否发生了更改。
 
 ### 计算签名所需的步骤：
@@ -75,19 +79,26 @@ AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
 ```
 
 2. 请求方法（GET 或 POST），后面添加换行符\n。
+
 ```
 GET\n
 ```
+
 3. 添加小写的访问地址，后面添加换行符\n。
+
 ```
 {host}\n
 ```
+
 4. 访问方法的路径，后面添加换行符\n。
+
 ```
 /v1/order/orders\n
 ```
+
 5. 按照**ASCII码的顺序对参数名进行排序(使用 UTF-8 编码，且进行了 URI 编码，十六进制字符必须大写**，如‘:’会被编码为'%3A'，空格被编码为'%20')。
 例如，下面是请求参数的原始顺序，进行过编码后。
+
 ```
 AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
 order-id=1234567890
@@ -97,6 +108,7 @@ Timestamp=2017-05-11T15%3A19%3A30
 ```
 
 这些参数会被排序为：
+
 ```
 AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
 SignatureMethod=HmacSHA256
@@ -105,36 +117,48 @@ Timestamp=2017-05-11T15%3A19%3A30
 order-id=1234567890
 
 ```
+
 按照以上顺序，将各参数使用字符’&’连接。
+
 ```
 AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2017-05-11T15%3A19%3A30&order-id=1234567890
-````
+```
+
 组成最终的要进行签名计算的字符串如下：
+
 ```
 GET\n
 {host}\n
 /v1/order/orders\n
 AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2017-05-11T15%3A19%3A30&order-id=1234567890
-````
+```
+
 计算签名，将以下两个参数传入加密哈希函数：
 要进行签名计算的字符串
+
 ```
 GET\n
 {host}\n
 /v1/order/orders\n
 AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2017-05-11T15%3A19%3A30&order-id=1234567890
 ```
+
 进行签名的密钥（SecretKey）
+
 ```
 b0xxxxxx-c6xxxxxx-94xxxxxx-dxxxx
 ```
+
 得到签名计算结果并进行 Base64编码
+
 ```
 4F65x5A2bLyMWVQj3Aqp+B4w+ivaA7n5Oi2SuYtCJ9o=
 ```
+
 将上述值作为参数Signature的取值添加到 API 请求中。 将此参数添加到请求时，必须将该值进行 URI 编码。
 
 最终，发送到服务器的 API 请求应该为：
+
 ```
 https://{host}/v1/order/orders?AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx&order-id=1234567890&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2017-05-11T15%3A19%3A30&Signature=4F65x5A2bLyMWVQj3Aqp%2BB4w%2BivaA7n5Oi2SuYtCJ9o%3D
 ```
@@ -154,11 +178,16 @@ https://{host}/v1/order/orders?AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx&orde
 
 # API Reference
 
-``` 请务必在header中设置user agent为 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36' ```
+<aside class="notice">
+请务必在header中设置user agent为 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36'  
+</aside>
 
-``` symbol 规则： 基础币种+计价币种。如BTC/USDT，symbol为btcusdt；ETH/BTC， symbol为ethbtc。以此类推```
+<aside class="notice">
+symbol 规则： 基础币种+计价币种。如BTC/USDT，symbol为btcusdt；ETH/BTC， symbol为ethbtc。以此类推
+</aside>
 
 ## 接口列表
+
 | 接口数据类型 | 请求方法 | 类型     | 描述  | 需要验签  |子账号可用|
 | ------------ | ----- | ------ | ----- | ----- | ----|
 | 市场行情       | [GET /market/history/kline](#get-markethistorykline-%E8%8E%B7%E5%8F%96k%E7%BA%BF%E6%95%B0%E6%8D%AE)  | GET | K线  | N |Y|
@@ -349,6 +378,7 @@ tick 说明:
 
 ```
 #### GET /market/tickers 
+
 ```json
 {  
     "status":"ok",
@@ -377,7 +407,9 @@ tick 说明:
     ]
 }
 ```
+
 注：当交易对尚未产生成交时，返回的数据里面 `open` `close` `high` `low` `amount` `count` `vol` 的值都为 `null`
+
 #### GET /market/depth 获取 Market Depth 数据
 
 请求参数:
@@ -953,6 +985,7 @@ list字段说明
 }
 ```
 ---
+
 ```json
 {
   "status": "ok",
@@ -1645,6 +1678,7 @@ list字段说明
 | bad-request | 错误请求 |
 | invalid-parameter | 参数错 |
 | invalid-command | 指令错 |
+
 code 的具体解释, 参考对应的 `err-msg`.
 
 ## 交易 API 错误码
