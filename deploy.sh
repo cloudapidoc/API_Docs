@@ -22,7 +22,7 @@ Options:
 
 run_build() {
   version="v"${version}
-  build_dir=$build_directory/spot/$version/$language
+  build_dir=$build_directory/$version/$language
   
   echo "build_dir="$build_dir
   bundle exec middleman build --clean --build-dir $build_dir
