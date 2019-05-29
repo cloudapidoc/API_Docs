@@ -66,14 +66,14 @@ under the License.
             </ul>
           </span>
           <span class="nav_cell nav_tab">
-            <a href="/API_Docs/v1/rest/">REST API</a>
+            <a href="/API_Docs/v1/rest/" id="btn_rest">REST API</a>
           </span>
           <span class="nav_cell nav_tab">
-            <a href="/API_Docs/v1/ws/">WebSocket API</a>
+            <a href="/API_Docs/v1/ws/" id="btn_ws">WebSocket API</a>
           </span>
         </div>
       </div>
-      <a href="/docs/spot/v1/cn/" class="lang" id="lang_box">简体中文</a>
+      <a href="/docs/spot/v1/cn/" class="lang" id="lang_box" style="display: none">简体中文</a>
     </header>
     <div class="toc-wrapper">
       <% if language_tabs.any? %>
@@ -138,38 +138,16 @@ under the License.
     </div>
     <script>
       const lang_btn = document.getElementById('lang_box');
-      const btn_spot = document.getElementById('btn_spot');
-      const btn_dm = document.getElementById('btn_dm');
-      const v1_url = document.getElementById('v1_url');
-      const v2_url = document.getElementById('v2_url');
+      const btn_rest = document.getElementById('btn_rest');
+      const btn_ws = document.getElementById('btn_ws');
       const url = GetUrlRelativePath();
-      if(url.indexOf('cn') != -1){
-        //如果是中文环境
-        lang_btn.innerHTML = 'English';
-        btn_spot.innerHTML = '现货API';
-        btn_dm.innerHTML = '合约API';
-        lang_btn.href = url.replace('cn/', 'en/');
-        btn_spot.href = btn_spot.href.replace('en/', 'cn/');
-        btn_dm.href = btn_dm.href.replace('en/', 'cn/');
-        v1_url.href = '/docs/spot/v1/cn/';
-        v2_url.href = '/docs/spot/v2/cn/';
-      }else{
-        //如果是英文环境
-        lang_btn.innerHTML = '中文';
-        btn_spot.innerHTML = 'Spot API';
-        btn_dm.innerHTML = 'Contract API';
-        lang_btn.href = url.replace('en/', 'cn/');
-        btn_spot.href = btn_spot.href.replace('cn/', 'en/');
-        btn_dm.href = btn_dm.href.replace('cn/', 'en/');
-        v1_url.href = '/docs/spot/v1/en/';
-        v2_url.href = '/docs/spot/v2/en/';
-      }
-      if(location.href.indexOf('docs/dm/v') > 0){
-        btn_spot.className = '';
-        btn_dm.className = 'current';
+
+      if(location.href.indexOf('/ws/') > 0){
+        btn_rest.className = '';
+        btn_ws.className = 'current';
       } else {
-        btn_spot.className = 'current';
-        btn_dm.className = '';
+        btn_rest.className = 'current';
+        btn_ws.className = '';
       }
       //显示语言切换按钮
       lang_btn.style.display = 'block';
