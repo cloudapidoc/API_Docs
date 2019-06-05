@@ -1,0 +1,932 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="images/favicon.ico" rel="icon" type="image/ico" />
+    <title>WebSocket API</title>
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;shell&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <header>
+      <div class="flex_box">
+        <h1 class="logo">Cloud API</h1>
+        <!-- <img src="images/logo.svg" class="logo" alt="Logo" /> -->
+        <div class="nav_box">
+          <span class="nav_cell" style="display: none">
+            <a href="javascript:;" class="nav_first">v1<i class="icon_nav"></i></a>
+            <ul class="nav_ul">
+              <li>
+                <a href="/docs/spot/v1/en/" id="v1_url">v1</a>
+              </li>
+              <li>
+                <a href="/docs/spot/v2/en/" id="v2_url">v2</a>
+              </li>
+            </ul>
+          </span>
+          <span class="nav_cell nav_tab">
+            <a href="/API_Docs/v1/rest/en/" id="btn_rest">REST API</a>
+          </span>
+          <span class="nav_cell nav_tab">
+            <a href="/API_Docs/v1/ws/en/" id="btn_ws">WebSocket API</a>
+          </span>
+        </div>
+      </div>
+      <a href="../en/" class="lang" id="lang_box">简体中文</a>
+    </header>
+    <div class="toc-wrapper">
+        <div class="lang-selector">
+              <a href="#" data-language-name="shell">shell</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#general" class="toc-h1 toc-link" data-title="General">General</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#ssl-websocket-connection" class="toc-h2 toc-link" data-title="SSL Websocket Connection">SSL Websocket Connection</a>
+                  </li>
+                  <li>
+                    <a href="#host-structure" class="toc-h2 toc-link" data-title="Host structure">Host structure</a>
+                  </li>
+                  <li>
+                    <a href="#data" class="toc-h2 toc-link" data-title="Data">Data</a>
+                  </li>
+                  <li>
+                    <a href="#library" class="toc-h2 toc-link" data-title="Library">Library</a>
+                  </li>
+                  <li>
+                    <a href="#topic" class="toc-h2 toc-link" data-title="Topic">Topic</a>
+                  </li>
+                  <li>
+                    <a href="#heartbeat" class="toc-h2 toc-link" data-title="Heartbeat">Heartbeat</a>
+                  </li>
+                  <li>
+                    <a href="#request" class="toc-h2 toc-link" data-title="Request">Request</a>
+                  </li>
+                  <li>
+                    <a href="#subscribe" class="toc-h2 toc-link" data-title="Subscribe">Subscribe</a>
+                  </li>
+                  <li>
+                    <a href="#unsubscribe" class="toc-h2 toc-link" data-title="unsubscribe">unsubscribe</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#reference" class="toc-h1 toc-link" data-title="Reference">Reference</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#candlestick-data" class="toc-h2 toc-link" data-title="Candlestick Data">Candlestick Data</a>
+                  </li>
+                  <li>
+                    <a href="#request-kline" class="toc-h2 toc-link" data-title="Request KLine">Request KLine</a>
+                  </li>
+                  <li>
+                    <a href="#subscribe-market-depth" class="toc-h2 toc-link" data-title="Subscribe Market Depth">Subscribe Market Depth</a>
+                  </li>
+                  <li>
+                    <a href="#request-market-depth" class="toc-h2 toc-link" data-title="Request Market Depth">Request Market Depth</a>
+                  </li>
+                  <li>
+                    <a href="#subscribe-trade-detail" class="toc-h2 toc-link" data-title="Subscribe Trade Detail">Subscribe Trade Detail</a>
+                  </li>
+                  <li>
+                    <a href="#request-trade-detail" class="toc-h2 toc-link" data-title="Request Trade Detail">Request Trade Detail</a>
+                  </li>
+                  <li>
+                    <a href="#request-market-detail" class="toc-h2 toc-link" data-title="Request Market Detail">Request Market Detail</a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+        <ul class="toc-footer">
+            <li></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='general'>General</h1><h3 id='ssl-websocket-connection'>SSL Websocket Connection</h3>
+<blockquote>
+<p>wss://{HOST}/ws</p>
+</blockquote>
+<h3 id='host-structure'>Host structure</h3>
+<blockquote>
+<p>Authenticated APIs:www.xxxx.com</p>
+
+<p>Public APIs: www.xxxx.com/api</p>
+</blockquote>
+<h3 id='data'>Data</h3>
+<p>All return data of websocket APIs needs to be unzipped.</p>
+
+<p>Recommend: <a href="https://github.com/nodeca/pako">pako</a></p>
+<h3 id='library'>Library</h3>
+<p>Recommend: <a href="https://github.com/websockets/ws">ws</a> by Node.js</p>
+<h3 id='topic'>Topic</h3>
+<p>Requesting and subscribing to the data need to use the <code>topic</code></p>
+
+<table><thead>
+<tr>
+<th>type</th>
+<th>topic</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>KLine</td>
+<td>market.$symbol.kline.$period</td>
+<td>$period ：{ 1min, 5min, 15min, 30min, 60min, 1day, 1mon, 1week, 1year }</td>
+</tr>
+<tr>
+<td>Market Depth</td>
+<td>market.$symbol.depth.$type</td>
+<td>$type ：{ step0, step1, step2, step3, step4, step5 } （depths 0-5）</td>
+</tr>
+<tr>
+<td>Trade Detail</td>
+<td>market.$symbol.trade.detail</td>
+<td></td>
+</tr>
+<tr>
+<td>Market Detail</td>
+<td>market.$symbol.detail</td>
+<td></td>
+</tr>
+<tr>
+<td>Market Tickers</td>
+<td>market.tickers</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p><code>$symbol</code> ： { ethbtc, ltcbtc, etcbtc, bccbtc ... }</p>
+<h3 id='heartbeat'>Heartbeat</h3><pre class="highlight plaintext"><code>//WebSocket Client Request
+{
+    "ping": 18212558000
+}
+
+//WebSocket Server response
+{
+    "pong": 18212558000
+}
+</code></pre>
+<p>If the type of request message is not <code>LONG</code>, websocket server will response:</p>
+<pre class="highlight plaintext"><code>{
+  "ts": 1492420473027,
+  "status": "error",
+  "err-code": "bad-request",
+  "err-msg": "invalid ping"
+}
+</code></pre><h3 id='request'>Request</h3><pre class="highlight plaintext"><code>//request
+{
+  "req": "topic to req",
+  "id": "id generate by client"
+}
+</code></pre>
+<p><code>&quot;req&quot;</code> use the <strong>topic</strong>,as above &quot;Topic&quot;</p>
+
+<p><strong>correct example</strong></p>
+<pre class="highlight plaintext"><code>//request
+{
+  "req": "market.ethbtc.kline.1min",
+  "id": "id10"
+}
+</code></pre><pre class="highlight plaintext"><code>//response
+{
+  "status": "ok",
+  "rep": "market.btccny.kline.1min",
+  "tick": [
+    {
+      "amount": 1.6206,
+      "count":  3,
+      "id":     1494465840,
+      "open":   9887.00,
+      "close":  9885.00,
+      "low":    9885.00,
+      "high":   9887.00,
+      "vol":    16021.632026
+    },
+    {
+      "amount": 2.2124,
+      "count":  6,
+      "id":     1494465900,
+      "open":   9885.00,
+      "close":  9880.00,
+      "low":    9880.00,
+      "high":   9885.00,
+      "vol":    21859.023500
+    }
+  ]
+}
+</code></pre>
+<p><strong>error request</strong></p>
+<pre class="highlight plaintext"><code>//request
+{
+  "req": "market.invalidsymbo.kline.1min",
+  "id": "id10"
+}
+</code></pre><pre class="highlight plaintext"><code>//response
+{
+  "status": "error",
+  "id": "id10",
+  "err-code": "bad-request",
+  "err-msg": "invalid topic market.invalidsymbol.trade.detail",
+  "ts": 1494483996521
+}
+</code></pre><h3 id='subscribe'>Subscribe</h3>
+<p>To receive data you have to send a &quot;sub&quot; message first.</p>
+<pre class="highlight plaintext"><code>//request
+{
+  "sub": "topic to sub",
+  "id": "id generate by client"
+}
+</code></pre>
+<p><strong>correct sample</strong></p>
+<pre class="highlight plaintext"><code>//request
+{
+  "sub": "market.btccny.kline.1min",
+  "id": "id1"
+}
+</code></pre>
+<p><code>&quot;req&quot;</code> use the <strong>topic</strong>,as above &quot;Topic&quot;.</p>
+<pre class="highlight plaintext"><code>//response
+{
+  "id": "id1",
+  "status": "ok",
+  "subbed": "market.btccny.kline.1min",
+  "ts": 1489474081631
+}
+</code></pre>
+<p>After subscribe,you will receive updates upon any change.</p>
+<pre class="highlight plaintext"><code>//example
+{
+  "ch": "market.btccny.kline.1min",
+  "ts": 1489474082831,
+  "tick": {
+    "id": 1489464480,
+    "amount": 0.0,
+    "count": 0,
+    "open": 7962.62,
+    "close": 7962.62,
+    "low": 7962.62,
+    "high": 7962.62,
+    "vol": 0.0
+  }
+}
+</code></pre>
+<p><strong>error example</strong></p>
+
+<p>wrong symbol</p>
+<pre class="highlight plaintext"><code>//response
+{
+  "id": "id2",
+  "status": "error",
+  "err-code": "bad-request",
+  "err-msg": "invalid topic market.invalidsymbol.kline.1min",
+  "ts": 1494301904959
+}
+</code></pre>
+<p>wrong topic</p>
+<pre class="highlight plaintext"><code>//response
+{
+  "id": "id3",
+  "status": "error",
+  "err-code": "bad-request",
+  "err-msg": "invalid topic market.btccny.kline.3min",
+  "ts": 1494310283622
+}
+</code></pre><h3 id='unsubscribe'>unsubscribe</h3>
+<p>To stop receiving data from a channel you have to send a &quot;unsubscribe&quot; message.</p>
+<pre class="highlight plaintext"><code>//request
+{
+  "unsub": "topic to unsub",
+  "id": "id generate by client"
+}
+</code></pre>
+<p><strong>correct sample</strong></p>
+<pre class="highlight plaintext"><code>//request
+{
+  "unsub": "market.btccny.trade.detail",
+  "id": "id4"
+}
+</code></pre><pre class="highlight plaintext"><code>//response
+{
+  "id": "id4",
+  "status": "ok",
+  "unsubbed": "market.btccny.trade.detail",
+  "ts" 1494326028889
+}
+</code></pre>
+<p><strong>error unsubscribe</strong></p>
+
+<p>Unsubscribe an unsubscribed topic</p>
+<pre class="highlight plaintext"><code>//response
+{
+  "id": "id5",
+  "status": "error",
+  "err-code": "bad-request",
+  "err-msg": "unsub with not subbed topic market.btccny.trade.detail",
+  "ts": 1494326217428
+}
+</code></pre>
+<p>Unsubscribe a nonexistent topic</p>
+<pre class="highlight plaintext"><code>//response
+{
+  "id": "id5",
+  "status": "error",
+  "err-code": "bad-request",
+  "err-msg": "unsub with not subbed topic not-exists-topic",
+  "ts": 1494326318809
+}
+</code></pre><h1 id='reference'>Reference</h1><h2 id='candlestick-data'>Candlestick Data</h2>
+<p><strong>market.$symbol$.kline.$period$</strong></p>
+
+<table><thead>
+<tr>
+<th>key</th>
+<th>necessary</th>
+<th>type</th>
+<th>description</th>
+<th>value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>Pairs</td>
+<td>ethbtc, ltcbtc...</td>
+</tr>
+<tr>
+<td>period</td>
+<td>true</td>
+<td>string</td>
+<td>KLine period</td>
+<td>1min, 5min, 15min, 30min, 60min, 1day, 1mon, 1week, 1year</td>
+</tr>
+</tbody></table>
+<pre class="highlight plaintext"><code>//request
+{
+  "sub": "market.symbol.kline.period",
+  "id": "id generate by client"
+}
+</code></pre><pre class="highlight plaintext"><code>//request
+{
+  "sub": "market.ethbtc.kline.1min",
+  "id": "id1"
+}
+</code></pre><pre class="highlight plaintext"><code>//response
+{
+  "id": "id1",
+  "status": "ok",
+  "subbed": "market.ethbtc.kline.1min",
+  "ts": 1489474081631
+}
+</code></pre>
+<p>After subscribe,you will receive updates upon any change.</p>
+<pre class="highlight plaintext"><code>{
+  "ch": "market.ethbtc.kline.1min",
+  "ts": 1489474082831,
+  "tick": {
+    "id": 1489464480,
+    "amount": 0.0,
+    "count": 0,
+    "open": 7962.62,
+    "close": 7962.62,
+    "low": 7962.62,
+    "high": 7962.62,
+    "vol": 0.0
+  }
+}
+</code></pre><h2 id='request-kline'>Request KLine</h2><h3 id='market-symbol-kline-period'>market.$symbol$.kline.$period$</h3><pre class="highlight plaintext"><code>//request
+{
+  "req": "market.$symbol.kline.$period",
+  "id": "id generated by client",
+  "from": "$optional",
+  "to": "$optional"
+}
+</code></pre>
+<p><code>&quot;from&quot;</code> <code>&quot;to&quot;</code> optional</p>
+
+<p>time range:[t2,t5]</p>
+
+<ul>
+<li>from: t1, to: t5, return [t1, t5].</li>
+<li>from: t5, to: t1, which t5 &gt; t1, return [].</li>
+<li>from: t5, return [t5].</li>
+<li>from: t3, return [t3, t5].</li>
+<li>to: t5, return [t1, t5].</li>
+<li>from: t which t3 &lt; t &lt;t4, return [t4, t5].</li>
+<li>to: t which t3 &lt; t &lt;t4, return [t1, t3].</li>
+<li>from: t1 and to: t2, should satisfy 1325347200 &lt; t1 &lt; t2 &lt; 2524579200.</li>
+</ul>
+<h4 id='example'>example</h4><pre class="highlight plaintext"><code>//request
+{
+  "req": "market.ethbtc.kline.1min",
+  "id": "id10"
+}
+</code></pre><pre class="highlight plaintext"><code>//response
+{
+  "rep": "market.ethbtc.kline.1min",
+  "status": "ok",
+  "id": "id10",
+  "tick": [
+    {
+      "amount": 17.4805,
+      "count":  27,
+      "id":     1494478080,
+      "open":   10050.00,
+      "close":  10058.00,
+      "low":    10050.00,
+      "high":   10058.00,
+      "vol":    175798.757708
+    },
+    {
+      "amount": 15.7389,
+      "count":  28,
+      "id":     1494478140,
+      "open":   10058.00,
+      "close":  10060.00,
+      "low":    10056.00,
+      "high":   10065.00,
+      "vol":    158331.348600
+    },
+    // more KLine data here
+  ]
+}
+</code></pre><h2 id='subscribe-market-depth'>Subscribe Market Depth</h2>
+<p>market.$symbol$.depth.$type$ </p>
+<pre class="highlight plaintext"><code>{
+  "sub": "market.$symbol.depth.$type",
+  "id": "id generated by client"
+}
+</code></pre>
+<table><thead>
+<tr>
+<th>key</th>
+<th>necessary</th>
+<th>type</th>
+<th>description</th>
+<th>value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>Pairs</td>
+<td>ethbtc, ltcbtc, etcbtc, bccbtc...</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td>Market depth</td>
+<td>step0, step1, step2, step3, step4, step5</td>
+</tr>
+</tbody></table>
+
+<p><strong>example</strong></p>
+<pre class="highlight plaintext"><code>//request
+{
+  "sub": "market.ethbtc.depth.step0",
+  "id": "id1"
+}
+</code></pre><pre class="highlight plaintext"><code>//response
+{
+  "id": "id1",
+  "status": "ok",
+  "subbed": "market.ethbtc.depth.step0",
+  "ts": 1489474081631
+}
+</code></pre>
+<p>After subscribe,you will receive updates upon any change.</p>
+<pre class="highlight plaintext"><code>{
+  "ch": "market.ethbtc.depth.step0",
+  "ts": 1489474082831,
+  "data": [
+    "bids": [
+    [9999.3900,0.0098], // [price, amount]
+    [9992.5947,0.0560],
+    // more Market Depth data here
+    ]
+    "asks": [
+    [10010.9800,0.0099]
+    [10011.3900,2.0000]
+    //more data here
+    ]
+  ]
+  }
+}
+</code></pre>
+<p><code>data</code> description</p>
+<pre class="highlight plaintext"><code>  "data": [
+    "bids": [
+    [buy1 price,buy1 volume]
+    [buy2 price,buy2 volume]
+    //more data here
+    ]
+    "asks": [
+    [sell1 price,sell1 volume]
+    [sell2 price,sell2 volume]
+    //more data here
+    ]
+  ]
+</code></pre><h2 id='request-market-depth'>Request Market Depth</h2>
+<p>market.$symbol$.depth.$type$ </p>
+<pre class="highlight plaintext"><code>{
+  "req": "market.$symbol.depth.$type",
+  "id": "id generated by client"
+}
+</code></pre>
+<p><strong>example</strong></p>
+<pre class="highlight plaintext"><code>//request
+{
+  "req": "market.ethbtc.depth.step0",
+  "id": "id10"
+}
+</code></pre><pre class="highlight plaintext"><code>//response
+{
+  "rep": "market.ethbtc.depth.step0",
+  "status": "ok",
+  "id": "id10",
+  "data": [
+    "bids": [
+    [9999.3900,0.0098], // [price, amount]
+    [9992.5947,0.0560],
+    // more Market Depth data here
+    ]
+    "asks": [
+    [10010.9800,0.0099]
+    [10011.3900,2.0000]
+    //more data here
+    ]
+  ]
+}
+</code></pre><h2 id='subscribe-trade-detail'>Subscribe Trade Detail</h2>
+<p>market.$symbol$.trade.detail  </p>
+<pre class="highlight plaintext"><code>//request
+{
+  "sub": "market.ethbtc.trade.detail",
+  "id": "id1"
+}
+</code></pre><pre class="highlight plaintext"><code>//response
+{
+  "id": "id1",
+  "status": "ok",
+  "subbed": "market.ethbtc.trade.detail",
+  "ts": 1489474081631
+}
+</code></pre>
+<p>After subscribe,you will receive updates upon any change.</p>
+<pre class="highlight plaintext"><code>{
+  "ch": "market.ethbtc.trade.detail",
+  "ts": 1489474082831,
+  "data": [
+            {
+                "amount": 0.0099,
+                "ts": 1533265950234,
+                "id": 146507451359183894799,
+                "price": 401.74,
+                "direction": "buy"
+            },
+            // more Trade Detail data here
+        ]
+}
+</code></pre><h2 id='request-trade-detail'>Request Trade Detail</h2>
+<p>market.$symbol$.trade.detail </p>
+<pre class="highlight plaintext"><code>//request
+{
+  "req": "market.$symbol.trade.detail",
+  "id": "id generated by client"
+}
+</code></pre>
+<p>Max data amount: 300</p>
+
+<p><strong>example</strong></p>
+<pre class="highlight plaintext"><code>//request
+{
+  "req": "market.ethbtc.trade.detail",
+  "id": "id11"
+}
+</code></pre><pre class="highlight plaintext"><code>//response
+{
+  "rep": "market.ethbtc.trade.detail",
+  "status": "ok",
+  "id": "id11",
+  "data": [
+    {
+      "id":        601595424,
+      "price":     10195.64,
+      "time":      1494495766,
+      "amount":    0.2943,
+      "direction": "buy",
+      "tradeId":   601595424,
+      "ts":        1494495766000
+    },
+    {
+      "id":        601595423,
+      "price":     10195.64,
+      "time":      1494495711,
+      "amount":    0.2430,
+      "direction": "buy",
+      "tradeId":   601595423,
+      "ts":        1494495711000
+    },
+    // more Trade Detail data here
+  ]
+}
+</code></pre><h2 id='request-market-detail'>Request Market Detail</h2>
+<p>market.$symbol$.detail </p>
+<pre class="highlight plaintext"><code>//request
+{
+  "req": "market.$symbol.detail",
+  "id": "id generated by client"
+}
+</code></pre>
+<p>Response recent Market Detail</p>
+
+<p><strong>example</strong></p>
+<pre class="highlight plaintext"><code>//request
+{
+  "req": "market.ethbtc.detail",
+  "id": "id12"
+}
+</code></pre><pre class="highlight plaintext"><code>//response
+{
+  "rep": "market.ethbtc.detail",
+  "status": "ok",
+  "id": "id12",
+  "tick": {
+    "amount": 12224.2922,
+    "open":   9790.52,
+    "close":  10195.00,
+    "high":   10300.00,
+    "ts":     1494496390000,
+    "id":     1494496390,
+    "count":  15195,
+    "low":    9657.00,
+    "vol":    121906001.754751
+  }
+}
+</code></pre>
+<p><br>
+<br>
+<br>
+<br>
+<br></p>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="shell">shell</a>
+          </div>
+      </div>
+    </div>
+    <script>
+      const lang_btn = document.getElementById('lang_box');
+      const btn_rest = document.getElementById('btn_rest');
+      const btn_ws = document.getElementById('btn_ws');
+      const url = GetUrlRelativePath();
+
+      if(location.href.indexOf('/ws/') > 0){
+        btn_rest.className = '';
+        btn_ws.className = 'current';
+      } else {
+        btn_rest.className = 'current';
+        btn_ws.className = '';
+      }
+      //显示语言切换按钮
+      // lang_btn.style.display = 'block';
+      if(url.indexOf('cn') != -1){
+        //如果是中文环境
+        lang_btn.innerHTML = 'English';
+        lang_btn.href = url.replace('cn/', 'en/');
+        btn_rest.href = btn_rest.href.replace('en/', 'cn/');
+        btn_ws.href = btn_ws.href.replace('en/', 'cn/');
+      }else{
+        //如果是英文环境
+        lang_btn.innerHTML = '中文';
+        lang_btn.href = url.replace('en/', 'cn/');
+        btn_rest.href = btn_rest.href.replace('cn/', 'en/');
+        btn_ws.href = btn_ws.href.replace('cn/', 'en/');
+      }
+
+      function GetUrlRelativePath(){
+        let url = document.location.toString();
+        let arrUrl = url.split("//");
+        let start = arrUrl[1].indexOf("/");
+        let relUrl = arrUrl[1].substring(start);
+        if(relUrl.indexOf("?") != -1){
+          relUrl = relUrl.split("?")[0];
+        }
+        if(relUrl.indexOf("#") != -1){
+          relUrl = relUrl.split("#")[0];
+        }
+        return relUrl;
+  　　}
+    </script>
+  </body>
+</html>
