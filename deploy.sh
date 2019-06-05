@@ -21,7 +21,7 @@ Options:
 
 
 run_build() {
-  build_dir=$build_directory/$version/$service/$language
+  build_dir=$build_directory/v$version/$service/$language
   echo "build_dir="$build_dir
   bundle exec middleman build --clean --build-dir $build_dir
 }
@@ -169,8 +169,8 @@ main() {
 }
 
 handle_deploy_files() {
-  if [ -d "$gh_pages_directory/$version/$service/$language" ]; then
-    rm -rf $gh_pages_directory/$version/$service/$language
+  if [ -d "$gh_pages_directory/v$version/$service/$language" ]; then
+    rm -rf $gh_pages_directory/v$version/$service/$language
   fi
   cp -r $build_directory/* $gh_pages_directory
 }
