@@ -66,14 +66,14 @@ under the License.
             </ul>
           </span>
           <span class="nav_cell nav_tab">
-            <a href="/API_Docs/v1/rest/" id="btn_rest">REST API</a>
+            <a href="/API_Docs/v1/rest/en/" id="btn_rest">REST API</a>
           </span>
           <span class="nav_cell nav_tab">
-            <a href="/API_Docs/v1/ws/" id="btn_ws">WebSocket API</a>
+            <a href="/API_Docs/v1/ws/en/" id="btn_ws">WebSocket API</a>
           </span>
         </div>
       </div>
-      <a href="/docs/spot/v1/cn/" class="lang" id="lang_box" style="display: none">简体中文</a>
+      <a href="../en/" class="lang" id="lang_box">简体中文</a>
     </header>
     <div class="toc-wrapper">
       <% if language_tabs.any? %>
@@ -151,6 +151,20 @@ under the License.
       }
       //显示语言切换按钮
       // lang_btn.style.display = 'block';
+      if(url.indexOf('cn') != -1){
+        //如果是中文环境
+        lang_btn.innerHTML = 'English';
+        lang_btn.href = url.replace('cn/', 'en/');
+        btn_rest.href = btn_rest.href.replace('en/', 'cn/');
+        btn_ws.href = btn_ws.href.replace('en/', 'cn/');
+      }else{
+        //如果是英文环境
+        lang_btn.innerHTML = '中文';
+        lang_btn.href = url.replace('en/', 'cn/');
+        btn_rest.href = btn_rest.href.replace('cn/', 'en/');
+        btn_ws.href = btn_ws.href.replace('cn/', 'en/');
+      }
+
       function GetUrlRelativePath(){
         let url = document.location.toString();
         let arrUrl = url.split("//");

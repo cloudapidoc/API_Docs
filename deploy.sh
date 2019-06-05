@@ -21,9 +21,7 @@ Options:
 
 
 run_build() {
-  version="v"${version}
-  build_dir=$build_directory/$version/$language
-  
+  build_dir=$build_directory/$version/$service/$language
   echo "build_dir="$build_dir
   bundle exec middleman build --clean --build-dir $build_dir
 }
@@ -88,7 +86,8 @@ check_version_lang() {
   branch=$(git describe --contains --all HEAD)
   echo "branch="$branch""
   #
-  language=$(echo $branch | cut -d '_' -f 2)
+  language=$(echo $branch | cut -d '_' -f 3)
+  service=$(echo $branch | cut -d '_' -f 2)
   version=$(echo $branch | cut -d '_' -f 1)
   
   if [[ $version = dm ]]; then
@@ -98,6 +97,7 @@ check_version_lang() {
   fi
   #
   echo "language="$language""
+  echo "service="$service""
   echo "version="$version""
 
 }
@@ -169,9 +169,9 @@ main() {
 }
 
 handle_deploy_files() {
-  # if [ -d "$gh_pages_directory/$version/$language" ]; then
-  #   rm -rf $gh_pages_directory/$version/$language
-  # fi
+  if [ -d "$gh_pages_directory/$version/$service/$language" ]; then
+    rm -rf $gh_pages_directory/$version/$service/$language
+  fi
   cp -r $build_directory/* $gh_pages_directory
 }
 
