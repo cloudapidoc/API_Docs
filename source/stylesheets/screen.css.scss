@@ -487,6 +487,7 @@ header{
   }
   &>h1[id],&>h2[id],&>h3[id],&>h4[id],&>h5[id],&>h6[id]{
     margin-top: -60px;
+    z-index: 1;
     &::before{
       position: relative;
       display: block;
@@ -515,7 +516,7 @@ header{
 
   *:not(h1){
     position: relative;
-    z-index: 1;
+    z-index: 2;
   }
   h1:first-child, div:first-child + h1 {
     border-top-width: 0;
