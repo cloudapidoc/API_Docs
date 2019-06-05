@@ -1,0 +1,3279 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="images/favicon.ico" rel="icon" type="image/ico" />
+    <title>Rest API</title>
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;shell&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <header>
+      <div class="flex_box">
+        <h1 class="logo">Cloud API</h1>
+        <!-- <img src="images/logo.svg" class="logo" alt="Logo" /> -->
+        <div class="nav_box">
+          <span class="nav_cell" style="display: none">
+            <a href="javascript:;" class="nav_first">v1<i class="icon_nav"></i></a>
+            <ul class="nav_ul">
+              <li>
+                <a href="/docs/spot/v1/en/" id="v1_url">v1</a>
+              </li>
+              <li>
+                <a href="/docs/spot/v2/en/" id="v2_url">v2</a>
+              </li>
+            </ul>
+          </span>
+          <span class="nav_cell nav_tab">
+            <a href="/API_Docs/v1/rest/en/" id="btn_rest">REST API</a>
+          </span>
+          <span class="nav_cell nav_tab">
+            <a href="/API_Docs/v1/ws/en/" id="btn_ws">WebSocket API</a>
+          </span>
+        </div>
+      </div>
+      <a href="../en/" class="lang" id="lang_box">简体中文</a>
+    </header>
+    <div class="toc-wrapper">
+        <div class="lang-selector">
+              <a href="#" data-language-name="shell">shell</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#signing" class="toc-h1 toc-link" data-title="Signing">Signing</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#components-of-a-query-request" class="toc-h2 toc-link" data-title="Components of a Query Request">Components of a Query Request</a>
+                  </li>
+                  <li>
+                    <a href="#how-to-generate-a-signature" class="toc-h2 toc-link" data-title="How to Generate a Signature">How to Generate a Signature</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#request-process" class="toc-h1 toc-link" data-title="Request Process">Request Process</a>
+          </li>
+          <li>
+            <a href="#api-reference" class="toc-h1 toc-link" data-title="API Reference">API Reference</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#list-of-requests" class="toc-h2 toc-link" data-title="List of Requests">List of Requests</a>
+                  </li>
+                  <li>
+                    <a href="#trade-api" class="toc-h2 toc-link" data-title="Trade API">Trade API</a>
+                  </li>
+                  <li>
+                    <a href="#margin-api-please-fill-in-the-field-39-source-39-in-method-39-v1-order-orders-place-39-with-39-margin-api-39-and-the-field-39-accountid-39-should-be-a-39-margin-39-accountid-queried-in-method-39-v1-account-accounts-39" class="toc-h2 toc-link" data-title="MARGIN API (Please fill in the field 'source' in method '/v1/order/orders/place' with 'margin-api', and the field 'accountid' should be a 'margin' accountid queried in method '/v1/account/accounts')">MARGIN API (Please fill in the field 'source' in method '/v1/order/orders/place' with 'margin-api', and the field 'accountid' should be a 'margin' accountid queried in method '/v1/account/accounts')</a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+        <ul class="toc-footer">
+            <li></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='signing'>Signing</h1>
+<p>Important Note: Do not reveal your &#39;AccessKey&#39; and &#39;SecretKey&#39; to anyone. They are as important as your password.</p>
+<h2 id='components-of-a-query-request'>Components of a Query Request</h2>
+<p>Each HTTPS request formatted for Signature should contain the following:</p>
+
+<ul>
+<li>AccessKeyId: The &#39;AccessKey&#39; distributed by Server when you applied for APIKEY.</li>
+<li>SignatureMethod: The hash-based protocol used to calculate the signature. This should be HmacSHA256.</li>
+<li>SignatureVersion: The version of the signature protocol.This shoule be 2.</li>
+<li>Timestamp: The time at which you make the request. Include this in the Query request to help prevent third parties from intercepting your request.This should be formatted in UTC time, like &#39;2017-05-11T16:22:06&#39;.</li>
+<li>Required and optional parameters: Each action has a set of required and optional parameters that define the API call.This shows in the API reference.Important Reminder: Every param in a GET method should be included in signature calculation, and only AccessKeyId, SignatureMethod, SignatureVersion, Timestamp should be included in signature calculation for a POST method.</li>
+<li>Signature: The calculated value that ensures the signature is valid and is not tampered.</li>
+</ul>
+
+<p>For example:
+<code>
+https://{HOST}/api/v1/order/orders?
+AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
+&amp;SignatureMethod=HmacSHA256
+&amp;SignatureVersion=2
+&amp;Timestamp=2017-05-11T15%3A19%3A30
+&amp;order-id=1234567890
+&amp;Signature=calculated value
+</code></p>
+<h2 id='how-to-generate-a-signature'>How to Generate a Signature</h2>
+<p>Web service requests are sent across the Internet and are vulnerable to tampering. For security reasons,  Server requires a signature as part of every request.</p>
+<h3 id='task-1-format-the-query-request'>Task 1: Format the Query Request</h3>
+<p>Before you can sign the Query request,  normalize the request in a standardized (canonical) format. This is necessary because different formats will result in different HMAC signatures. Normalize the request in a canonical format before signing. This ensures your application and server will calculate the same signature for a request.</p>
+
+<p>The following example generates the string to sign for the following call to the server.</p>
+<pre class="highlight plaintext"><code>https://{HOST}/api/v1/order/orders?
+AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
+&amp;SignatureMethod=HmacSHA256
+&amp;SignatureVersion=2
+&amp;Timestamp=2017-05-11T15:19:30
+&amp;order-id=1234567890
+</code></pre>
+<ol>
+<li>Start with the request method (either GET or POST),  followed by a newline character. For human readability,  the newline character is represented as \n.</li>
+</ol>
+<pre class="highlight plaintext"><code>GET\n
+</code></pre>
+<ol>
+<li>Add the root url in lowercase,  followed by a newline character.</li>
+</ol>
+<pre class="highlight plaintext"><code>{HOST}\n
+</code></pre>
+<ol>
+<li>Add the method,  followed by a newline character. </li>
+</ol>
+<pre class="highlight plaintext"><code>{HOST}\n
+</code></pre>
+<ol>
+<li>Add the query string components,  as UTF-8 characters which are URL encoded (hexadecimal characters must be uppercase). Please do not encode the initial question mark character (?) in the request.Then sort the query string components by byte order. Byte ordering is case sensitive.</li>
+</ol>
+
+<p>For example, this is the original order for the query string components.</p>
+<pre class="highlight plaintext"><code>AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
+order-id=1234567890
+SignatureMethod=HmacSHA256
+SignatureVersion=2
+Timestamp=2017-05-11T15%3A19%3A30
+</code></pre>
+<p>The query string components would be reorganized as the following:</p>
+<pre class="highlight plaintext"><code>AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
+SignatureMethod=HmacSHA256
+SignatureVersion=2
+Timestamp=2017-05-11T15%3A19%3A30
+order-id=1234567890
+</code></pre>
+<ol>
+<li>Separate parameter names from their values with the equal sign character (=),  even if the value is empty. Separate parameter and value pairs with the ampersand character (&amp;). Concatenate the parameters and their values to make one long string with no spaces. Spaces within a parameter value are allowed,  but must be URL encoded as %20. In the concatenated string,  period characters (.) are not escaped. </li>
+</ol>
+
+<p>The following example shows the query string components,  with the parameters concatenated with the ampersand character (&amp;),  and sorted by byte order.</p>
+<pre class="highlight plaintext"><code>AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx&amp;SignatureMethod=HmacSHA256&amp;SignatureVersion=2&amp;Timestamp=2017-05-11T15%3A19%3A30&amp;order-id=1234567890
+</code></pre>
+<p>To construct the finished canonical request,  combine all the components from each step. As shown,  each component ends with a newline character.</p>
+<pre class="highlight plaintext"><code>GET\n
+{HOST}\n
+/v1/order/orders\n
+AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx&amp;SignatureMethod=HmacSHA256&amp;SignatureVersion=2&amp;Timestamp=2017-05-11T15%3A19%3A30&amp;order-id=1234567890
+</code></pre>
+<p>Task 2: Calculate the Signature</p>
+
+<ol>
+<li>The signature is calculated with the following canonical string and secret key as inputs to a keyed hash function:</li>
+</ol>
+
+<ul>
+<li>Canonical query string:</li>
+</ul>
+<pre class="highlight plaintext"><code>GET\n
+{HOST}\n
+/v1/order/orders\n
+AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx&amp;SignatureMethod=HmacSHA256&amp;SignatureVersion=2&amp;Timestamp=2017-05-11T15%3A19%3A30&amp;order-id=1234567890
+</code></pre>
+<ul>
+<li> Secret key(The &#39;SecretKey&#39; distributed by server when you applied for APIKEY.):</li>
+</ul>
+<pre class="highlight plaintext"><code>b0xxxxxx-c6xxxxxx-94xxxxxx-dxxxx
+</code></pre>
+<ul>
+<li>The resulting signature must be base-64 encoded.</li>
+</ul>
+<pre class="highlight plaintext"><code>4F65x5A2bLyMWVQj3Aqp+B4w+ivaA7n5Oi2SuYtCJ9o=
+</code></pre>
+<ol>
+<li><p>Add the resulting value to the query request as a Signature parameter. When you add this parameter to the request,  you must URI encode it just like any other parameter. You can use the signed request in an HTTP or HTTPS call.</p></li>
+<li><p>The final request ：</p></li>
+</ol>
+<pre class="highlight plaintext"><code>https://{HOST}/v1/order/orders?AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx&amp;order-id=1234567890&amp;SignatureMethod=HmacSHA256&amp;SignatureVersion=2&amp;Timestamp=2017-05-11T15%3A19%3A30&amp;Signature=4F65x5A2bLyMWVQj3Aqp%2BB4w%2BivaA7n5Oi2SuYtCJ9o%3D
+</code></pre><h1 id='request-process'>Request Process</h1>
+<ol>
+<li> rest public api：www.xxxx.com/api without verify
+；rest private api：www.xxxx.com/api verify host:www.xxxx.com
+；ws public api：www.xxxx.com/api/ws without verify
+；ws private api：www.xxxx.com/ws/v1 verify host：www.xxxx.com ；verify path：ws/v1.</li>
+<li>Host Structure: www.xxxx.com/api (Should you have any question about the Host, please consult with your host provider.)</li>
+<li>The field &#39;Content-Type&#39; in request header should be &#39;application/x-www-form-urlencoded&#39; for a GET method, and &#39;application/x-www-form-urlencoded&#39; for a POST method. </li>
+<li>Request parameter: Construct the request parameters according to each API interface.</li>
+<li>Submit request: Use POST or GET method to send request to server.</li>
+<li>HTTPS is required.</li>
+<li>Server respond: Server processes request and returns data to users in JSON format after authentication check.</li>
+</ol>
+<h1 id='api-reference'>API Reference</h1>
+<p><code>Composition rules of &#39;symbol&#39; ： &#39;base-currency&#39; + &#39;quote-currency&#39;.For &#39;BTC/USDT&#39; trading,the &#39;symbol&#39; is btcusdt, and so on.</code></p>
+<h2 id='list-of-requests'>List of Requests</h2>
+<table><thead>
+<tr>
+<th>Content Type</th>
+<th>Request Method</th>
+<th>Request Type</th>
+<th>Description</th>
+<th>Signature Required</th>
+<th>Sub-UID Allowed</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Market Data</td>
+<td><a href="#get-markethistorykline--get-candlestick-data">GET /market/history/kline</a></td>
+<td>GET</td>
+<td>K-Line</td>
+<td>N</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Market Data</td>
+<td><a href="#get-marketdetailmerged-get-ticker">GET /market/detail/merged</a></td>
+<td>GET</td>
+<td>24 hours trade summary and best bid/ask for a symbol</td>
+<td>N</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Market Data</td>
+<td><a href="#get-markettickers">GET /market/tickers</a></td>
+<td>GET</td>
+<td>Trade summary of a trading day for all symbols</td>
+<td>N</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Market Data</td>
+<td><a href="#get-marketdepth---market-depth">GET /market/depth</a></td>
+<td>GET</td>
+<td>Market Depth of a symbol</td>
+<td>N</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Market Data</td>
+<td><a href="#get-markettrade--trade-detail">GET /market/trade</a></td>
+<td>GET</td>
+<td>The last trade of a symbol</td>
+<td>N</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Market Data</td>
+<td><a href="#get-markethistorytrade-orderbook">GET /market/history/trade</a></td>
+<td>GET</td>
+<td>Request a batch of trade records of a symbol, up to 2000 records</td>
+<td>N</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Symbols&amp;Currency</td>
+<td>[GET /v1/common/symbols]</td>
+<td>GET</td>
+<td>Reference information of trading instrument, including base currency, quote precision, etc.</td>
+<td>N</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Symbols&amp;Currency</td>
+<td>[GET /v1/common/currencys]</td>
+<td>GET</td>
+<td>The list of currencies available</td>
+<td>N</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Account</td>
+<td>[GET /v1/account/accounts]</td>
+<td>GET</td>
+<td>get the status of an account</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Account</td>
+<td>[GET /v1/account/accounts/{account-id}/balance]</td>
+<td>GET</td>
+<td>Get the balance of an account</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Trade</td>
+<td>[POST/v1/order/orders/place]</td>
+<td>POST</td>
+<td>Place an order</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Trade</td>
+<td><a href="#post-v1orderordersorder-idsubmitcancel--request-for-cancelling-an-order">POST/v1/order/orders/{order-id}/submitcancel</a></td>
+<td>POST</td>
+<td>Request to cancel an order</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Trade</td>
+<td><a href="#post-v1orderordersbatchcancel--batch-cancel">POST /v1/order/orders/batchcancel</a></td>
+<td>POST</td>
+<td>Request to cancel a batch of orders, up to 50 orders</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Trade</td>
+<td><a href="#post--v1orderbatchcancelopenorders--cancel-a-batch-of-orders-with-certain-criteria">POST /v1/order/orders/batchCancelOpenOrders</a></td>
+<td>POST</td>
+<td>Request to cancel a batch of orders, which meet certain criteria, up to 100 orders</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>User Order Info</td>
+<td><a href="#get-v1orderordersorder-id----get-order-info">GET /v1/order/orders/{order-id}</a></td>
+<td>GET</td>
+<td>Get the details of an order</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>User Order Info</td>
+<td><a href="#get-v1orderordersorder-idmatchresults--get-order-matchresult">GET /v1/order/orders/{order-id}/matchresults</a></td>
+<td>GET</td>
+<td>Get detail match results of an order</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>User Order Info</td>
+<td><a href="#get-v1orderorders--get-order-list">GET /v1/order/orders</a></td>
+<td>GET</td>
+<td>Search for a group of orders, which meet certain criteria (up to 100)</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>User Order Info</td>
+<td><a href="#get-v1ordermatchresults----get-order-matchresults">GET /v1/order/matchresults</a></td>
+<td>GET</td>
+<td>Search for the trade records of an account</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>User Order Info</td>
+<td><a href="#get-v1orderopenorders-provide-open-orders-of-a-symbol-for-an-account">GET /v1/order/openOrders</a></td>
+<td>GET</td>
+<td>Get the open orders of an account (up to 500)</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Withdraw/Deposit</td>
+<td><a href="#post-v1dwwithdrawapicreate---create-a-withdraw-application">POST /v1/dw/withdraw/api/create</a></td>
+<td>POST</td>
+<td>Submit a request to withdraw some asset from an account</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td>Withdraw/Deposit</td>
+<td><a href="#post-v1dwwithdraw-virtualwithdraw-idcancel-cancel-a-withdraw">POST /v1/dw/withdraw-virtual/{withdraw-id}/cancel</a></td>
+<td>POST</td>
+<td>Cancel an withdraw request</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td>Withdraw/Deposit</td>
+<td><a href="#get-v1querydeposit-withdraw---get-deposit-or-withdraw-records">GET /v1/query/deposit-withdraw</a></td>
+<td>GET</td>
+<td>Get the withdraw and deposit records of an account</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+</tbody></table>
+<h3 id='market-data-api'>Market Data API</h3><h4 id='get-market-history-kline-get-candlestick-data'>GET /market/history/kline  Get Candlestick Data</h4>
+<p>Request: </p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>default</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>trading asset</td>
+<td></td>
+<td>btcusdt, bccbtc, rcneth ...</td>
+</tr>
+<tr>
+<td>period</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+<td>1min, 5min, 15min, 30min, 60min, 1day, 1mon, 1week, 1year</td>
+</tr>
+<tr>
+<td>size</td>
+<td>false</td>
+<td>integer</td>
+<td></td>
+<td>150</td>
+<td>[1,2000]</td>
+</tr>
+</tbody></table>
+
+<p>Response: </p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>&quot;ok&quot; , &quot;error&quot;</td>
+</tr>
+<tr>
+<td>ts</td>
+<td>true</td>
+<td>number</td>
+<td>timestamp in millisecond</td>
+<td></td>
+</tr>
+<tr>
+<td>tick</td>
+<td>true</td>
+<td>object</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ch</td>
+<td>true</td>
+<td>string</td>
+<td>channel,format： market.$symbol.kline.$period</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>data : </p>
+<pre class="highlight plaintext"><code>  "data": [
+{
+    "id": kline id,
+    "amount": trading amount,
+    "count": 
+    "open": Open price,
+    "close": Closing price.If this is a latest kline,this shows the current price
+    "low":  
+    "high": 
+    "vol": volume
+  }
+]
+</code></pre>
+<p>Example: </p>
+<pre class="highlight plaintext"><code>/* GET /market/history/kline?period=1day&amp;size=200&amp;symbol=btcusdt */
+{
+  "status": "ok",
+  "ch": "market.btcusdt.kline.1day",
+  "ts": 1499223904680,
+  “data”: [
+{
+    "id": 1499184000,
+    "amount": 37593.0266,
+    "count": 0,
+    "open": 1935.2000,
+    "close": 1879.0000,
+    "low": 1856.0000,
+    "high": 1940.0000,
+    "vol": 71031537.97866500
+  },
+// more data here
+]
+}
+
+/* GET /market/history/kline?period=not-exist&amp;size=200&amp;symbol=ethusdt */
+{
+  "ts": 1490758171271,
+  "status": "error",
+  "err-code": "invalid-parameter",
+  "err-msg": "invalid period"
+}
+
+/* GET /market/history/kline?period=1day&amp;size=not-exist&amp;symbol=ethusdt */
+{
+  "ts": 1490758221221,
+  "status": "error",
+  "err-code": "bad-request",
+  "err-msg": "invalid size, valid range: [1,2000]"
+}
+
+/* GET /market/history/kline?period=1day&amp;size=200&amp;symbol=not-exist */
+{
+  "ts": 1490758171271,
+  "status": "error",
+  "err-code": "invalid-parameter",
+  "err-msg": "invalid symbol"
+}
+</code></pre><h4 id='get-market-detail-merged-get-ticker'>GET /market/detail/merged Get Ticker</h4>
+<p>Request: </p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>default</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>trading asset</td>
+<td></td>
+<td>btcusdt, bccbtc, rcneth ...</td>
+</tr>
+</tbody></table>
+
+<p>Response: </p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>&quot;ok&quot; , &quot;error&quot;</td>
+</tr>
+<tr>
+<td>ts</td>
+<td>true</td>
+<td>number</td>
+<td>timestamp in millisecond</td>
+<td></td>
+</tr>
+<tr>
+<td>tick</td>
+<td>true</td>
+<td>object</td>
+<td>kline data</td>
+<td></td>
+</tr>
+<tr>
+<td>ch</td>
+<td>true</td>
+<td>string</td>
+<td>channel, format： market.$symbol.detail.merged</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>tick : </p>
+<pre class="highlight plaintext"><code>  "tick": {
+    "id":  
+    "amount":  
+    "count":  
+    "open":  
+    "close": Closing price.If this is a latest kline,this shows the current price
+    "low":  
+    "high":  
+    "vol":  volume
+    "bid": [bid1 price, volume],
+    "ask": [ask1 price, volume]
+  }
+
+</code></pre>
+<p>Example: </p>
+<pre class="highlight plaintext"><code>/* GET /market/detail/merged?symbol=ethusdt */
+{
+"status":"ok",
+"ch":"market.ethusdt.detail.merged",
+"ts":1499225276950,
+"tick":{
+  "id":1499225271,
+  "ts":1499225271000,
+  "close":1885.0000,
+  "open":1960.0000,
+  "high":1985.0000,
+  "low":1856.0000,
+  "amount":81486.2926,
+  "count":42122,
+  "vol":157052744.85708200,
+  "ask":[1885.0000,21.8804],
+  "bid":[1884.0000,1.6702]
+  }
+}
+
+/* GET /market/detail/merged?symbol=not-exist */
+{
+  "ts": 1490758171271,
+  "status": "error",
+  "err-code": "invalid-parameter",
+  "err-msg": "invalid symbol”
+}
+
+</code></pre><h4 id='get-market-tickers'>GET /market/tickers</h4>
+<p>will get something like this
+<code>
+{  
+    &quot;status&quot;:&quot;ok&quot;,
+    &quot;ts&quot;:1510885463001,
+    &quot;data&quot;:[  
+        {  
+            &quot;open&quot;:0.044297,      // daily Kline,opennig price
+            &quot;close&quot;:0.042178,     // daily Kline,closing price
+            &quot;low&quot;:0.040110,       // daily Kline,the minimum price
+            &quot;high&quot;:0.045255,      // daily Kline,the maxmum price
+            &quot;amount&quot;:12880.8510,  
+            &quot;count&quot;:12838,        
+            &quot;vol&quot;:563.0388715740, 
+            &quot;symbol&quot;:&quot;ethbtc&quot;     
+        },
+        {  
+            &quot;open&quot;:0.008545,
+            &quot;close&quot;:0.008656,
+            &quot;low&quot;:0.008088,
+            &quot;high&quot;:0.009388,
+            &quot;amount&quot;:88056.1860,
+            &quot;count&quot;:16077,
+            &quot;vol&quot;:771.7975953754,
+            &quot;symbol&quot;:&quot;ltcbtc&quot;
+        }
+    ]
+}
+</code></p>
+<h4 id='get-market-depth-market-depth'>GET /market/depth   Market Depth</h4>
+<p>Request:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>default</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>trading asset</td>
+<td></td>
+<td>btcusdt, bccbtc, rcneth ...</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td>Depth data type</td>
+<td></td>
+<td>step0, step1, step2, step3, step4, step5</td>
+</tr>
+</tbody></table>
+
+<p>Response:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>&quot;ok&quot; or &quot;error&quot;</td>
+</tr>
+<tr>
+<td>ts</td>
+<td>true</td>
+<td>number</td>
+<td>timestamp in millisecond</td>
+<td></td>
+</tr>
+<tr>
+<td>tick</td>
+<td>true</td>
+<td>object</td>
+<td>Depth</td>
+<td></td>
+</tr>
+<tr>
+<td>ch</td>
+<td>true</td>
+<td>string</td>
+<td>channel, format： market.$symbol.depth.$type</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>tick :</p>
+<pre class="highlight plaintext"><code>  "tick": {
+    "id": 
+    "ts": millisecond,
+    "bids":  [price , amount ] 
+    "asks":  [price , amount ] 
+  }
+</code></pre>
+<p>Example:</p>
+<pre class="highlight plaintext"><code>/* GET /market/depth?symbol=ethusdt&amp;type=step1 */
+{
+  "status": "ok",
+  "ch": "market.btcusdt.depth.step1",
+  "ts": 1489472598812,
+  "tick": {
+    "id": 1489464585407,
+    "ts": 1489464585407,
+    "bids": [
+      [7964, 0.0678], // [price, amount]
+      [7963, 0.9162],
+      [7961, 0.1],
+      [7960, 12.8898],
+      [7958, 1.2],
+      [7955, 2.1009],
+      [7954, 0.4708],
+      [7953, 0.0564],
+      [7951, 2.8031],
+      [7950, 13.7785],
+      [7949, 0.125],
+      [7948, 4],
+      [7942, 0.4337],
+      [7940, 6.1612],
+      [7936, 0.02],
+      [7935, 1.3575],
+      [7933, 2.002],
+      [7932, 1.3449],
+      [7930, 10.2974],
+      [7929, 3.2226]
+    ],
+    "asks": [
+      [7979, 0.0736],
+      [7980, 1.0292],
+      [7981, 5.5652],
+      [7986, 0.2416],
+      [7990, 1.9970],
+      [7995, 0.88],
+      [7996, 0.0212],
+      [8000, 9.2609],
+      [8002, 0.02],
+      [8008, 1],
+      [8010, 0.8735],
+      [8011, 2.36],
+      [8012, 0.02],
+      [8014, 0.1067],
+      [8015, 12.9118],
+      [8016, 2.5206],
+      [8017, 0.0166],
+      [8018, 1.3218],
+      [8019, 0.01],
+      [8020, 13.6584]
+    ]
+  }
+}
+
+/* GET /market/depth?symbol=ethusdt&amp;type=not-exist */
+{
+  "ts": 1490759358099,
+  "status": "error",
+  "err-code": "invalid-parameter",
+  "err-msg": "invalid type"
+}
+</code></pre><h4 id='get-market-trade-trade-detail'>GET /market/trade  Trade Detail</h4>
+<p>Request:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>default</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>trading asset</td>
+<td></td>
+<td>btcusdt, bccbtc, rcneth ...</td>
+</tr>
+</tbody></table>
+
+<p>Response:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>&quot;ok&quot; or &quot;error&quot;</td>
+</tr>
+<tr>
+<td>ts</td>
+<td>true</td>
+<td>number</td>
+<td>timestamp in millisecond</td>
+<td></td>
+</tr>
+<tr>
+<td>tick</td>
+<td>true</td>
+<td>object</td>
+<td>Trade</td>
+<td></td>
+</tr>
+<tr>
+<td>ch</td>
+<td>true</td>
+<td>string</td>
+<td>channel, format： market.$symbol.trade.detail</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>tick ：</p>
+<pre class="highlight plaintext"><code>  "tick": {
+    "id":  
+    "ts": millisecond
+    "data": [
+      {
+        "id":  
+        "price":  
+        "amount":  
+        "direction":  
+        "ts":  
+      }
+    ]
+  }
+</code></pre>
+<p>Example:</p>
+<pre class="highlight plaintext"><code>/* GET /market/trade?symbol=ethusdt */
+{
+  "status": "ok",
+  "ch": "market.btcusdt.trade.detail",
+  "ts": 1489473346905,
+  "tick": {
+    "id": 600848670,
+    "ts": 1489464451000,
+    "data": [
+      {
+        "id": 600848670,
+        "price": 7962.62,
+        "amount": 0.0122,
+        "direction": "buy",
+        "ts": 1489464451000
+      }
+    ]
+  }
+}
+
+/* GET /market/trade?symbol=not-exist */
+{
+  "ts": 1490759506429,
+  "status": "error",
+  "err-code": "invalid-parameter",
+  "err-msg": "invalid symbol"
+}
+</code></pre><h4 id='get-market-history-trade-orderbook'>GET /market/history/trade orderbook</h4>
+<p>Request:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>default</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>trading asset</td>
+<td></td>
+<td>btcusdt, bccbtc, rcneth ...</td>
+</tr>
+<tr>
+<td>size</td>
+<td>false</td>
+<td>integer</td>
+<td></td>
+<td>1</td>
+<td>[1, 2000]</td>
+</tr>
+</tbody></table>
+
+<p>Response:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>default</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+<td>ok, error</td>
+</tr>
+<tr>
+<td>ch</td>
+<td>true</td>
+<td>string</td>
+<td>channel, format： market.$symbol.trade.detail</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ts</td>
+<td>true</td>
+<td>integer</td>
+<td>timestamp</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>data</td>
+<td>true</td>
+<td>object</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>data ：</p>
+<pre class="highlight plaintext"><code>  "data": {
+    "id":  
+    "ts":  
+    "data": [
+      {
+        "id":  
+        "price":  
+        "amount":  
+        "direction":  
+        "ts":  
+      }
+    ]
+  }
+</code></pre>
+<p>Example:</p>
+<pre class="highlight plaintext"><code>/* GET /market/history/trade?symbol=ethusdt */
+{
+    "status": "ok",
+    "ch": "market.ethusdt.trade.detail",
+    "ts": 1502448925216,
+    "data": [
+        {
+            "id": 31459998,
+            "ts": 1502448920106,
+            "data": [
+                {
+                    "id": 17592256642623,
+                    "amount": 0.04,
+                    "price": 1997,
+                    "direction": "buy",
+                    "ts": 1502448920106
+                }
+            ]
+        }
+    ]
+}
+</code></pre><h3 id='public-api'>Public API</h3><h4 id='get-v1-common-symbols-get-all-the-trading-assets'>GET /v1/common/symbols     Get all the trading assets</h4>
+<p>Request:
+none</p>
+
+<p>Response:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>base-currency</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>quote-currency</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>price-precision</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>amount-precision</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>symbol-partition</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>main ,innovation ,bifurcation</td>
+</tr>
+</tbody></table>
+
+<p>Example:</p>
+<pre class="highlight plaintext"><code>/* GET /v1/common/symbols */
+{
+  "status": "ok",
+  "data": [
+    {
+      "base-currency": "eth",
+      "quote-currency": "usdt",
+      "symbol": "ethusdt"
+    }
+    {
+      "base-currency": "etc",
+      "quote-currency": "usdt",
+      "symbol": "etcusdt"
+    }
+  ]
+}
+</code></pre><h4 id='get-v1-common-currencys-get-currencys-supported'>GET /v1/common/currencys     Get currencys supported</h4>
+<p>Request:</p>
+
+<p>none</p>
+
+<p>Response:</p>
+<pre class="highlight plaintext"><code>currency list
+</code></pre>
+<p>Example:</p>
+<pre class="highlight plaintext"><code>/* GET /v1/common/currencys */
+{
+  "status": "ok",
+  "data": [
+    "usdt",
+    "eth",
+    "etc"
+  ]
+}
+</code></pre><h4 id='get-v1-common-timestamp-get-system-timestamp'>GET /v1/common/timestamp    Get system timestamp</h4>
+<p>Request:</p>
+
+<p>none</p>
+
+<p>Response:</p>
+<pre class="highlight plaintext"><code>system timestamp
+</code></pre>
+<p>Example</p>
+<pre class="highlight plaintext"><code>/* GET /v1/timestamp */
+{
+  "status": "ok",
+  "data": 1494900087029
+}
+</code></pre><h3 id='account-api'>Account API</h3><h4 id='get-v1-account-accounts-get-all-the-accounts'>GET /v1/account/accounts Get all the accounts</h4>
+<p>Request:</p>
+
+<p>Response:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>long</td>
+<td>account-id</td>
+<td></td>
+</tr>
+<tr>
+<td>state</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>working , lock</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>spot, margin</td>
+</tr>
+</tbody></table>
+
+<p>Example:</p>
+<pre class="highlight plaintext"><code>/* GET /v1/account/accounts */
+{
+  "status": "ok",
+  "data": [
+    {
+      "id": 100009,
+      "type": "spot",
+      "state": "working",
+      "user-id": 1000
+    }
+  ]
+}
+</code></pre><h4 id='get-v1-account-accounts-account-id-balance-get-balance'>GET /v1/account/accounts/{account-id}/balance     Get balance</h4>
+<p>Request</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>default</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account-id</td>
+<td>true</td>
+<td>string</td>
+<td>account-id, not UID, filled in the methos path</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<ul>
+<li>Please get your accountid by &#39;GET /v1/account/accounts&#39;.</li>
+</ul>
+
+<p>Response:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>state</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>working, lock</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>spot, margin</td>
+</tr>
+<tr>
+<td>list</td>
+<td>false</td>
+<td>Array</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>list</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>balance</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>currency</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>trade ,frozen</td>
+</tr>
+</tbody></table>
+
+<p>Example:</p>
+<pre class="highlight plaintext"><code>/* GET /v1/account/accounts/{account-id}/balance */
+{
+  "status": "ok",
+  "data": {
+    "id": 100009,
+    "type": "spot",
+    "state": "working",
+    "list": [
+      {
+        "currency": "usdt",
+        "type": "trade",
+        "balance": "500009195917.4362872650"
+      },
+      {
+        "currency": "usdt",
+        "type": "frozen",
+        "balance": "328048.1199920000"
+      },
+     {
+        "currency": "etc",
+        "type": "trade",
+        "balance": "499999894616.1302471000"
+      },
+      {
+        "currency": "etc",
+        "type": "frozen",
+        "balance": "9786.6783000000"
+      }
+     {
+        "currency": "eth",
+        "type": "trade",
+        "balance": "499999894616.1302471000"
+      },
+      {
+        "currency": "eth”,
+        "type": "frozen",
+        "balance": "9786.6783000000"
+      }
+    ],
+    "user-id": 1000
+  }
+}
+</code></pre><h2 id='trade-api'>Trade API</h2><h4 id='post-v1-order-orders-place-make-an-order'>POST /v1/order/orders/place  Make an order</h4>
+<p>Request</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>default</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account-id</td>
+<td>true</td>
+<td>string</td>
+<td>accountid in ‘spot’ for spot trade, ‘margin’ for margin trade</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>amount</td>
+<td>true</td>
+<td>string</td>
+<td>Amount in buy-limit or sell-limitorder. It presents how much quote-currency you trade in buy-market order, and how many base-currency you trade in sell-market order</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>price</td>
+<td>false</td>
+<td>string</td>
+<td>don&#39;t use this param in buy-market or sell-market order</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>source</td>
+<td>false</td>
+<td>string</td>
+<td>&#39;api&#39; for spot trade and &#39;margin-api&#39; for margin trade</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>trading asset</td>
+<td></td>
+<td>btcusdt, bccbtc, rcneth ...</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+<td>buy-market , sell-market , buy-limit , sell-limit , buy-ioc, sell-ioc,  buy-limit-maker, sell-limit-maker</td>
+</tr>
+</tbody></table>
+
+<p><strong>buy-limit-maker</strong></p>
+
+<p>When a user place a buy_limit_maker order, if the order price &gt;= the actual top sell price, the order will be submitted and then be rejected by the system. If the order price &lt; the actual top sell price, then the order will be submitted and accepted by the system.</p>
+
+<p><strong>sell-limit-maker</strong></p>
+
+<p>When a user place a sell_limit_maker order, if the order price &lt;= the actual top buy price, the order will be submitted and then be rejected by the system. If the order price &gt; the actual top buy price, then the order will be submitted and accepted by the system.</p>
+
+<p>Response:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>false</td>
+<td>string</td>
+<td>order id</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>Example:</p>
+<pre class="highlight plaintext"><code>/* POST /v1/order/orders/place {
+   "account-id": "100009",
+   "amount": "10.1",
+   "price": "100.1",
+   "source": "api",
+   "symbol": "ethusdt",
+   "type": "buy-limit"
+ } */
+{
+  "status": "ok",
+  "data": "59378"
+}
+</code></pre><h4 id='get-v1-order-openorders-provide-open-orders-of-a-symbol-for-an-account'>GET /v1/order/openOrders Provide open orders of a symbol for an account</h4><h4 id='request-parameter-s'>Request parameter(s):</h4>
+<p><code>When neither account-id nor symbol defined in the request, the system will return all open orders (max 500) for all symbols and all accounts of the user, sorted by order ID in descending</code></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Data Type</th>
+<th>Description</th>
+<th>default value</th>
+<th>Value Range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account-id</td>
+<td>true</td>
+<td>string</td>
+<td>Account ID</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>Instrument symbol</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>side</td>
+<td>false</td>
+<td>string</td>
+<td>The side of the orders</td>
+<td></td>
+<td>“buy” or “sell”, if no side defined, will return all open orders of the account</td>
+</tr>
+<tr>
+<td>size</td>
+<td>false</td>
+<td>int</td>
+<td>The number of records to return</td>
+<td>10</td>
+<td>[0,500]</td>
+</tr>
+</tbody></table>
+<h4 id='response'>Response:</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Data Type</th>
+<th>Description</th>
+<th>Value Range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>long</td>
+<td>Order ID</td>
+<td></td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>Instrument symbol</td>
+<td></td>
+</tr>
+<tr>
+<td>account-id</td>
+<td>true</td>
+<td>string</td>
+<td>Account ID</td>
+<td></td>
+</tr>
+<tr>
+<td>price</td>
+<td>true</td>
+<td>string</td>
+<td>Order price</td>
+<td></td>
+</tr>
+<tr>
+<td>created-at</td>
+<td>true</td>
+<td>int</td>
+<td>Order Created Time (ms)</td>
+<td></td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td>Order type</td>
+<td>buy-market, sell-market, buy-limit, sell-limit, buy-ioc, sell-ioc</td>
+</tr>
+<tr>
+<td>filled-amount</td>
+<td>true</td>
+<td>string</td>
+<td>The order filled amount. When an order is partially matched, this field will be the filled amount. And amount-filledAmount would be the order remaining amount.</td>
+<td>For the orders not partial filled, the value will be 0.</td>
+</tr>
+<tr>
+<td>filled-cash-amount</td>
+<td>true</td>
+<td>string</td>
+<td>The order filled value. (filled amount*order price)</td>
+<td>For the orders not partial filled, the value will be 0.</td>
+</tr>
+<tr>
+<td>filled-fees</td>
+<td>true</td>
+<td>string</td>
+<td>The fee for the filled amount.</td>
+<td>For the orders not partial filled, the value will be 0.</td>
+</tr>
+<tr>
+<td>source</td>
+<td>true</td>
+<td>string</td>
+<td>Order source type</td>
+<td>sys, web, api, app</td>
+</tr>
+<tr>
+<td>state</td>
+<td>true</td>
+<td>string</td>
+<td>Current Order state</td>
+<td>Submitted, partial-filled, cancelling. ** Cancelling is an interim state between cancel request submitted and cancel confirmed. Once cancellation confirmed, the order is no longer an ‘open’ order, so will not be included in the response.</td>
+</tr>
+</tbody></table>
+<h4 id='response-sample'>Response Sample:</h4><pre class="highlight json tab-json"><code><span class="err">/*</span><span class="w"> </span><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">1</span><span class="err">/orders/openOrders</span><span class="w"> </span><span class="err">*/</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5454937</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ethusdt"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"account-id"</span><span class="p">:</span><span class="w"> </span><span class="mi">30925</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.000000000000000000"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.453000000000000000"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created-at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1530604762277</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sell-limit"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"filled-amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"filled-cash-amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"filled-fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"web"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"submitted"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h4 id='post-v1-order-orders-order-id-submitcancel-request-for-cancelling-an-order'>POST /v1/order/orders/{order-id}/submitcancel  Request for cancelling an order</h4>
+<p>Request: </p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>default</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order-id</td>
+<td>true</td>
+<td>string</td>
+<td>order id,filled in method path</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>Response: </p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>true</td>
+<td>string</td>
+<td>order id</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>Example:</p>
+<pre class="highlight plaintext"><code>/* POST /v1/order/orders/{order-id}/submitcancel */
+{
+  "status": "ok",
+  "data": "59378"
+}
+</code></pre><h4 id='post-v1-order-orders-batchcancel-batch-cancel'>POST /v1/order/orders/batchcancel  Batch Cancel</h4>
+<p>Request:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>default</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order-ids</td>
+<td>true</td>
+<td>list</td>
+<td>order id list</td>
+<td></td>
+<td>maximum is 50</td>
+</tr>
+</tbody></table>
+
+<p>Response:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>false</td>
+<td>map</td>
+<td>status list</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>Example:</p>
+<pre class="highlight plaintext"><code>/* POST /v1/order/orders/batchcancel */
+{
+  "order-ids": [
+    "1", "2", "3"
+  ]
+}
+
+-----
+
+{
+  "status": "ok",
+  "data": {
+    "success": [
+      "1",
+      "3"
+    ],
+    "failed": [
+      {
+        "err-msg": "记录无效",
+        "order-id": "2",
+        "err-code": "base-record-invalid"
+      }
+    ]
+  }
+}
+</code></pre><h4 id='post-v1-order-orders-batchcancelopenorders-cancel-a-batch-of-orders-with-certain-criteria'>POST  /v1/order/orders/batchCancelOpenOrders  Cancel a batch of orders with certain criteria</h4>
+<p>Request Parameter(s): </p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Data Type</th>
+<th>Description</th>
+<th>Default Value</th>
+<th>Value Range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account-id</td>
+<td>true</td>
+<td>string</td>
+<td>Account ID</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>false</td>
+<td>string</td>
+<td>Instrument symbol</td>
+<td></td>
+<td>One instrument symbol. When no symbol defined, will return open orders of the account for all symbols.</td>
+</tr>
+<tr>
+<td>side</td>
+<td>false</td>
+<td>string</td>
+<td>The side of the orders</td>
+<td></td>
+<td>“buy” or “sell”, if no side defined, will return all open orders of the account</td>
+</tr>
+<tr>
+<td>size</td>
+<td>false</td>
+<td>int</td>
+<td>The number of records to return</td>
+<td>100</td>
+<td>[0,100]</td>
+</tr>
+</tbody></table>
+
+<p>Response: </p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>success-count</td>
+<td>true</td>
+<td>int</td>
+<td>Number of orders successfully cancelled.</td>
+<td></td>
+</tr>
+<tr>
+<td>failed-count</td>
+<td>true</td>
+<td>int</td>
+<td>Number of orders failed in cancellation</td>
+<td></td>
+</tr>
+<tr>
+<td>next-id</td>
+<td>true</td>
+<td>long</td>
+<td>The next order id which meets cancellation request criteria</td>
+<td></td>
+</tr>
+</tbody></table>
+<h4 id='response-example'>Response Example:</h4><pre class="highlight json tab-json"><code><span class="err">/*</span><span class="w"> </span><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">1</span><span class="err">/order/orders/batchCancelOpenOrders</span><span class="w"> </span><span class="err">*/</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"success-count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"failed-count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next-id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5454600</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h4 id='get-v1-order-orders-order-id-get-order-info'>GET /v1/order/orders/{order-id}    Get Order Info</h4>
+<p>Request: </p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>default</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order-id</td>
+<td>true</td>
+<td>string</td>
+<td>order id,filled in method path</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>Response: </p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account-id</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>amount</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>canceled-at</td>
+<td>false</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>created-at</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>field-amount</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>field-cash-amount</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>field-fees</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>finished-at</td>
+<td>false</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>price</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>source</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>api</td>
+</tr>
+<tr>
+<td>state</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>pre-submitted , submitting , submitted , partial-filled , partial-canceled , filled, canceled</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>trading asset</td>
+<td>btcusdt, bccbtc, rcneth ...</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>buy-market, sell-market, buy-limit, sell-limit, buy-ioc, sell-ioc</td>
+</tr>
+</tbody></table>
+
+<p>Example:</p>
+<pre class="highlight plaintext"><code>/* GET /v1/order/orders/{order-id} */
+{
+  "status": "ok",
+  "data": {
+    "id": 59378,
+    "symbol": "ethusdt",
+    "account-id": 100009,
+    "amount": "10.1000000000",
+    "price": "100.1000000000",
+    "created-at": 1494901162595,
+    "type": "buy-limit",
+    "field-amount": "10.1000000000",
+    "field-cash-amount": "1011.0100000000",
+    "field-fees": "0.0202000000",
+    "finished-at": 1494901400468,
+    "user-id": 1000,
+    "source": "api",
+    "state": "filled",
+    "canceled-at": 0,
+    "exchange": "xxx",
+    "batch": ""
+  }
+}
+</code></pre><h4 id='get-v1-order-orders-order-id-matchresults-get-order-matchresult'>GET /v1/order/orders/{order-id}/matchresults  Get Order matchresult</h4>
+<p>Request:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>default</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order-id</td>
+<td>true</td>
+<td>string</td>
+<td>order id,filled in method path</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>Response:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>created-at</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>filled-amount</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>filled-fees</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>match-id</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>order-id</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>price</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>source</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>api</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>trading asset</td>
+<td>btcusdt, bccbtc, rcneth ...</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>buy-market, sell-market, buy-limit, sell-limit, buy-ioc, sell-ioc</td>
+</tr>
+</tbody></table>
+
+<p>Example:</p>
+<pre class="highlight plaintext"><code>/* GET /v1/order/orders/{order-id}/matchresults */
+{
+  "status": "ok",
+  "data": [
+    {
+      "id": 29553,
+      "order-id": 59378,
+      "match-id": 59335,
+      "symbol": "ethusdt",
+      "type": "buy-limit",
+      "source": "api",
+      "price": "100.1000000000",
+      "filled-amount": "9.1155000000",
+      "filled-fees": "0.0182310000",
+      "created-at": 1494901400435
+    }
+  ]
+}
+</code></pre><h4 id='get-v1-order-orders-get-order-list'>GET /v1/order/orders  Get Order list</h4>
+<p>Request:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>default</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>trading asset</td>
+<td></td>
+<td>btcusdt, bccbtc, rcneth ...</td>
+</tr>
+<tr>
+<td>types</td>
+<td>false</td>
+<td>string</td>
+<td>separate by &#39;,&#39;</td>
+<td></td>
+<td>buy-market, sell-market, buy-limit, sell-limit, buy-ioc, sell-ioc</td>
+</tr>
+<tr>
+<td>start-date</td>
+<td>false</td>
+<td>string</td>
+<td>yyyy-mm-dd</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>end-date</td>
+<td>false</td>
+<td>string</td>
+<td>yyyy-mm-dd</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>states</td>
+<td>true</td>
+<td>string</td>
+<td>separate by &#39;,&#39;</td>
+<td></td>
+<td>pre-submitted, submitted , partial-filled , partial-canceled , filled , canceled</td>
+</tr>
+<tr>
+<td>from</td>
+<td>false</td>
+<td>string</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>direct</td>
+<td>false</td>
+<td>string</td>
+<td></td>
+<td></td>
+<td>prev  ,next</td>
+</tr>
+<tr>
+<td>size</td>
+<td>false</td>
+<td>string</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>Response: </p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account-id</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>amount</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>canceled-at</td>
+<td>false</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>created-at</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>field-amount</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>field-cash-amount</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>field-fees</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>finished-at</td>
+<td>false</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>price</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>source</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>api</td>
+</tr>
+<tr>
+<td>state</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>pre-submitted , submitting , submitted , partial-filled , partial-canceled , filled, canceled</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>trading asset</td>
+<td>btcusdt, bccbtc, rcneth ...</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>submit-cancel  ,buy-market, sell-market, buy-limit, sell-limit, buy-ioc, sell-ioc</td>
+</tr>
+</tbody></table>
+
+<p>Example:</p>
+<pre class="highlight plaintext"><code>/* GET /v1/order/orders */
+{
+  "status": "ok",
+  "data": [
+    {
+      "id": 59378,
+      "symbol": "ethusdt",
+      "account-id": 100009,
+      "amount": "10.1000000000",
+      "price": "100.1000000000",
+      "created-at": 1494901162595,
+      "type": "buy-limit",
+      "field-amount": "10.1000000000",
+      "field-cash-amount": "1011.0100000000",
+      "field-fees": "0.0202000000",
+      "finished-at": 1494901400468,
+      "user-id": 1000,
+      "source": "api",
+      "state": "filled",
+      "canceled-at": 0,
+      "exchange": "xxx",
+      "batch": ""
+    }
+  ]
+}
+</code></pre><h4 id='get-v1-order-matchresults-get-order-matchresults'>GET /v1/order/matchresults    Get order matchresults</h4>
+<p>Request:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>default</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>trading asset</td>
+<td>btcusdt, bccbtc, rcneth ...</td>
+<td></td>
+</tr>
+<tr>
+<td>types</td>
+<td>false</td>
+<td>string</td>
+<td>separate by &#39;,&#39;</td>
+<td>All</td>
+<td>buy-market, sell-market, buy-limit, sell-limit, buy-ioc, sell-ioc</td>
+</tr>
+<tr>
+<td>start-date</td>
+<td>false</td>
+<td>string</td>
+<td>yyyy-mm-dd</td>
+<td>-61 days</td>
+<td>[-61day, now]</td>
+</tr>
+<tr>
+<td>end-date</td>
+<td>false</td>
+<td>string</td>
+<td>yyyy-mm-dd</td>
+<td>Now</td>
+<td>[start-date, now]</td>
+</tr>
+<tr>
+<td>from</td>
+<td>false</td>
+<td>string</td>
+<td></td>
+<td>max ID(order record ID)</td>
+<td></td>
+</tr>
+<tr>
+<td>direct</td>
+<td>false</td>
+<td>string</td>
+<td></td>
+<td>next</td>
+<td>prev ,next</td>
+</tr>
+<tr>
+<td>size</td>
+<td>false</td>
+<td>string</td>
+<td></td>
+<td>100</td>
+<td>&lt;=100</td>
+</tr>
+</tbody></table>
+
+<p>Response: </p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>created-at</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>filled-amount</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>filled-fees</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>match-id</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>order-id</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>price</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>source</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>api</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>trading asset</td>
+<td>btcusdt, bccbtc, rcneth ...</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>buy-market, sell-market, buy-limit, sell-limit, buy-ioc, sell-ioc</td>
+</tr>
+</tbody></table>
+
+<p>Example:</p>
+<pre class="highlight plaintext"><code>/* GET /v1/orders/matchresults */
+{
+  "status": "ok",
+  "data": [
+    {
+      "id": 29555,
+      "order-id": 59378,
+      "match-id": 59335,
+      "symbol": "ethusdt",
+      "type": "buy-limit",
+      "source": "api",
+      "price": "100.1000000000",
+      "filled-amount": "0.9845000000",
+      "filled-fees": "0.0019690000",
+      "created-at": 1494901400487
+    }
+  ]
+}
+</code></pre><h2 id='margin-api-please-fill-in-the-field-39-source-39-in-method-39-v1-order-orders-place-39-with-39-margin-api-39-and-the-field-39-accountid-39-should-be-a-39-margin-39-accountid-queried-in-method-39-v1-account-accounts-39'>MARGIN API (Please fill in the field &#39;source&#39; in method &#39;/v1/order/orders/place&#39; with &#39;margin-api&#39;, and the field &#39;accountid&#39; should be a &#39;margin&#39; accountid queried in method &#39;/v1/account/accounts&#39;)</h2>
+<p><code>only usdt-trading assets(except btc) are supported</code></p>
+<h4 id='post-v1-dw-transfer-in-margin-transfer-asset-from-spot-account-to-margin-account'>POST /v1/dw/transfer-in/margin  Transfer asset from spot account to margin account</h4><h4 id='post-v1-dw-transfer-out-margin-transfer-asset-from-margin-account-to-spot-account'>POST /v1/dw/transfer-out/margin  Transfer asset from margin account to spot account</h4>
+<p>Request</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>default</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>trading asset like &#39;btcusdt&#39;</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>currency</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>amount</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>Response:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>true</td>
+<td>long</td>
+<td>transfer id</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>Example:</p>
+<pre class="highlight plaintext"><code>/* POST /v1/dw/transfer-in/margin
+{
+  "symbol": "ethusdt",
+  "currency": "eth",
+  "amount": "1.0"
+} */
+{
+  "status": "ok",
+  "data": 1000
+}
+</code></pre><h4 id='post-v1-margin-orders-margin-application'>POST /v1/margin/orders  Margin application</h4>
+<p>Request</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>default</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>currency</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>amount</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>Response:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>true</td>
+<td>long</td>
+<td>margin order id</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>Example:</p>
+<pre class="highlight plaintext"><code>/* POST /v1/margin/orders {
+   "amount": "10.1",
+   "symbol": "ethusdt",
+   "currency": "eth"
+} */
+{
+  "status": "ok",
+  "data": 59378
+}
+</code></pre><h4 id='post-v1-margin-orders-order-id-repay-repayment'>POST /v1/margin/orders/{order-id}/repay     Repayment</h4>
+<p>Request</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>default</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order-id</td>
+<td>true</td>
+<td>long</td>
+<td>margin order id, filled in method path</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>amount</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>Response:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>true</td>
+<td>long</td>
+<td>margin order id</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>Example:</p>
+<pre class="highlight plaintext"><code>/* POST /v1/margin/orders/59378/repay {
+   "amount": "10.1"
+}*/
+{
+  "status": "ok",
+  "data": 59378
+}
+</code></pre><h4 id='get-v1-margin-loan-orders-margin-order-list'>GET /v1/margin/loan-orders  Margin order list</h4>
+<p>Request</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>default</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>start-date</td>
+<td>false</td>
+<td>string</td>
+<td>yyyy-mm-dd</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>end-date</td>
+<td>false</td>
+<td>string</td>
+<td>yyyy-mm-dd</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>states</td>
+<td>false</td>
+<td>string</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>from</td>
+<td>false</td>
+<td>string</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>direct</td>
+<td>false</td>
+<td>string</td>
+<td></td>
+<td></td>
+<td>prev  ,next</td>
+</tr>
+<tr>
+<td>size</td>
+<td>false</td>
+<td>string</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>Response:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>user-id</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>account-id</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>currency</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>loan-amount</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>loan-balance</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>interest-rate</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>interest-amount</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>interest-balance</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>created-at</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>accrued-at</td>
+<td>true</td>
+<td>long</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>state</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>created  ,accrual ,cleared ,invalid</td>
+</tr>
+</tbody></table>
+
+<p>Example:</p>
+<pre class="highlight plaintext"><code>/* GET /v1/margin/orders?symbol=btcusdt
+
+*/
+{
+    "status": "ok",
+    "data": [
+        {
+            "currency": "btc",
+            "symbol": "btcusdt",
+            "accrued-at": 1511760873587,
+            "loan-amount": "0.333000000000000000",
+            "loan-balance": "0.333000000000000000",
+            "interest-balance": "0.000000000000000000",//unrepaid
+            "created-at": 1511762673587,
+            "interest-amount": "0.000000000000000000",
+            "interest-rate": "0.000000000000000000",
+            "account-id": 18298,
+            "user-id": 111899,
+            "updated-at": 1511762673654,
+            "id": 232,
+            "state": "accrual"
+        }
+      ]
+}
+
+</code></pre><h4 id='get-v1-margin-accounts-balance-symbol-symbol-margin-account-info'>GET /v1/margin/accounts/balance?symbol={symbol}  Margin account info</h4>
+<p>Request</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>default</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>false</td>
+<td>string</td>
+<td>filled in method path</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>Response:</p>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>required</th>
+<th>data type</th>
+<th>description</th>
+<th>value range</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>true</td>
+<td>string</td>
+<td>trading asset</td>
+<td></td>
+</tr>
+<tr>
+<td>state</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td>working,fl-sys,fl-mgt,fl-end</td>
+</tr>
+<tr>
+<td>risk-rate</td>
+<td>true</td>
+<td>object</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>fl-price</td>
+<td>true</td>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>list</td>
+<td>true</td>
+<td>array</td>
+<td>subaccount list</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>Example:</p>
+<pre class="highlight plaintext"><code>/* GET /v1/margin/accounts/balance?symbol=btcusdt
+
+*/
+{
+    "status": "ok",
+    "data": [
+        {
+            "id": 18264,
+            "type": "margin",
+            "state": "working",
+            "symbol": "btcusdt",
+            "fl-price": "0",
+            "fl-type": "safe",
+            "risk-rate": "475.952571086994250554",
+            "list": [
+                {
+                    "currency": "btc",
+                    "type": "trade",
+                    "balance": "1168.533000000000000000"
+                },
+                {
+                    "currency": "btc",
+                    "type": "frozen",
+                    "balance": "0.000000000000000000"
+                },
+                {
+                    "currency": "btc",
+                    "type": "loan",
+                    "balance": "-2.433000000000000000"
+                },
+                {
+                    "currency": "btc",
+                    "type": "interest",
+                    "balance": "-0.000533000000000000"
+                },
+                {
+                    "currency": "usdt",
+                    "type": "trade",
+                    "balance": "1313.534000000000000000"
+                },
+                {
+                    "currency": "usdt",
+                    "type": "frozen",
+                    "balance": "0.000000000000000000"
+                },
+                {
+                    "currency": "usdt",
+                    "type": "loan",
+                    "balance": "-140.234099999999999920"
+                },
+                {
+                    "currency": "usdt",
+                    "type": "interest",
+                    "balance": "-0.931206660000000000"
+                },
+                {
+                    "currency": "btc",
+                    "type": "transfer-out-available",
+                    "balance": "1163.872174670000000000"
+                },
+                { "currency": "usdt",
+                    "type": "transfer-out-available",
+                    "balance": "1313.534000000000000000"
+                },
+                {
+                    "currency": "btc",
+                    "type": "loan-available",
+                    "balance": "8161.876538350676000000"
+                },
+                {
+                    "currency": "usdt",
+                    "type": "loan-available",
+                    "balance": "49859.765900000000000080"
+                }
+            ]
+        }
+    ]
+}
+
+</code></pre>
+<p><br>
+<br>
+<br>
+<br>
+<br></p>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="shell">shell</a>
+          </div>
+      </div>
+    </div>
+    <script>
+      const lang_btn = document.getElementById('lang_box');
+      const btn_rest = document.getElementById('btn_rest');
+      const btn_ws = document.getElementById('btn_ws');
+      const url = GetUrlRelativePath();
+
+      if(location.href.indexOf('/ws/') > 0){
+        btn_rest.className = '';
+        btn_ws.className = 'current';
+      } else {
+        btn_rest.className = 'current';
+        btn_ws.className = '';
+      }
+      //显示语言切换按钮
+      // lang_btn.style.display = 'block';
+      if(url.indexOf('cn') != -1){
+        //如果是中文环境
+        lang_btn.innerHTML = 'English';
+        lang_btn.href = url.replace('cn/', 'en/');
+        btn_rest.href = btn_rest.href.replace('en/', 'cn/');
+        btn_ws.href = btn_ws.href.replace('en/', 'cn/');
+      }else{
+        //如果是英文环境
+        lang_btn.innerHTML = '中文';
+        lang_btn.href = url.replace('en/', 'cn/');
+        btn_rest.href = btn_rest.href.replace('cn/', 'en/');
+        btn_ws.href = btn_ws.href.replace('cn/', 'en/');
+      }
+
+      function GetUrlRelativePath(){
+        let url = document.location.toString();
+        let arrUrl = url.split("//");
+        let start = arrUrl[1].indexOf("/");
+        let relUrl = arrUrl[1].substring(start);
+        if(relUrl.indexOf("?") != -1){
+          relUrl = relUrl.split("?")[0];
+        }
+        if(relUrl.indexOf("#") != -1){
+          relUrl = relUrl.split("#")[0];
+        }
+        return relUrl;
+  　　}
+    </script>
+  </body>
+</html>
