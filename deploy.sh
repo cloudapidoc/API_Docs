@@ -219,11 +219,13 @@ commit+push() {
   if [ $GH_TOKEN ]; then
     # deploy by Travis CI
     # add github token
+    echo "commit+push with TOKEN"
     repo="https://"$GH_TOKEN"@github.com/cloudapidoc/API_Docs.git"
     git remote add origin-pages $repo
     git push --quiet origin-pages $deploy_branch
   else
     # manual deploy
+    echo "commit+push..."
     git push --quiet $repo $deploy_branch
   fi
   enable_expanded_output
