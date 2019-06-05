@@ -1,9 +1,11 @@
 # API_Docs
 
-# WebSocket行情API
+# WebSocket API
 
-* [WebSocket API](https://cloudapidoc.github.io/API_Docs/v1/rest/)
+* [WebSocket API (中文)](https://cloudapidoc.github.io/API_Docs/v1/ws/cn/)
+* [WebSocket API (English)](https://cloudapidoc.github.io/API_Docs/v1/ws/en/)
 
-# REST行情、交易API
+# REST API
 
-* [REST API](https://cloudapidoc.github.io/API_Docs/v1/ws/)
+* [REST API (中文)](https://cloudapidoc.github.io/API_Docs/v1/rest/cn/)
+* [REST API (English)](https://cloudapidoc.github.io/API_Docs/v1/rest/en/)
