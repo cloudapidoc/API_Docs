@@ -18,7 +18,10 @@ API实现程序化交易。
 ## 合法请求结构
 基于安全考虑，除行情API 外的 API 请求都必须进行签名运算。一个合法的请求由以下几部分组成：
 
-* 方法请求地址 即访问服务器地址：HOST+/api+方法名，比如{HOST}/api/v1/order/orders。
+* rest公共接口：www.xxxx.com/api 无验签
+* rest私有接口：www.xxxx.com/api 注意：验签host是www.xxxx.com
+* ws公共接口：www.xxxx.com/api/ws 无验签
+* ws私有接口：www.xxxx.com/ws/v1 注意：验签host是www.xxxx.com ；验签path是ws/v1。
 
 * Host的常用格式：www.xxxx.com 如果有host格式相关问题，请咨询Host提供方）
 
