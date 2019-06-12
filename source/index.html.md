@@ -64,6 +64,7 @@ API实现程序化交易。
   - 签名 签名计算得出的值，用于确保签名有效和未被篡改。
 
     例：
+    
 ```
 https://{HOST}/api/v1/order/orders?
 AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
@@ -161,8 +162,6 @@ AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
 
 ```
 b0xxxxxx-c6xxxxxx-94xxxxxx-dxxxx
-得到签名计算结果并进行 Base64编码
-
 4F65x5A2bLyMWVQj3Aqp+B4w+ivaA7n5Oi2SuYtCJ9o=
 ```
 
