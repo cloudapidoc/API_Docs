@@ -64,16 +64,15 @@ API实现程序化交易。
   - 签名 签名计算得出的值，用于确保签名有效和未被篡改。
 
     例：
-
-    ```
-    https://{HOST}/api/v1/order/orders?
-    AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
-    &SignatureMethod=HmacSHA256
-    &SignatureVersion=2
-    &Timestamp=2017-05-11T15%3A19%3A30
-    &order-id=1234567890
-    &Signature=calculated value
-    ```
+```
+https://{HOST}/api/v1/order/orders?
+AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
+&SignatureMethod=HmacSHA256
+&SignatureVersion=2
+&Timestamp=2017-05-11T15%3A19%3A30
+&order-id=1234567890
+&Signature=calculated value
+```
 
 ## 签名运算
 
