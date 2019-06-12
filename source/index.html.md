@@ -24,7 +24,7 @@ WebSocket协议是基于TCP的一种新的网络协议。它实现了客户端�
 
 ### 数据压缩
 
-WebSocket API 返回的所有数据都进行了 GZIP 压缩，需要 client 在收到数据之后解压，推荐使用pako。（<a href="<https://github.com/nodeca/pako>">【pako】</a> 是一个支持压缩和解压 GZIP 的库）
+WebSocket API 返回的所有数据都进行了 GZIP 压缩，需要 client 在收到数据之后解压，推荐使用pako。（pako 是一个支持压缩和解压 GZIP 的库）
 
 ### 心跳消息
 
