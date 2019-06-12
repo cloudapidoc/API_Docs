@@ -444,15 +444,16 @@
 <li>签名 签名计算得出的值，用于确保签名有效和未被篡改。</li>
 </ul>
 
-<p>例：</p>
-<pre class="highlight plaintext"><code>https://{HOST}/api/v1/order/orders?
+<p>例：
+<code>
+https://{HOST}/api/v1/order/orders?
 AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
 &amp;SignatureMethod=HmacSHA256
 &amp;SignatureVersion=2
 &amp;Timestamp=2017-05-11T15%3A19%3A30
 &amp;order-id=1234567890
 &amp;Signature=calculated value
-</code></pre></li>
+</code></p></li>
 </ul>
 <h2 id='2aea65f664'>签名运算</h2>
 <p>API 请求在通过 Internet 发送的过程中极有可能被篡改。为了确保请求未被更改，我们会要求用户在每个请求中带上签名（行情 API 除外），来校验参数或参数值在传输途中是否发生了更改。</p>
