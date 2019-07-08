@@ -1137,7 +1137,7 @@ balance|-|decimal|-		|账户余额	|-
 
 API Key 权限：提币
 
-<aside class="notice">仅支持在官网上相应币种 <a href='https://www.hbg.com/zh-cn/withdraw_address/'>地址列表 </a> 中的地址。</aside>
+<aside class="notice">仅支持在官网上相应币种地址列表 </a> 中的地址。</aside>
 
 ### HTTP 请求
 
