@@ -1337,7 +1337,7 @@ type       | string    | true     | NA      | 订单类型，包括buy-market, s
 amount     | string    | true     | NA      | 订单交易量
 price      | string    | false    | NA      | limit order的交易价格
 source     | string    | false    | api     | 现货交易填写“api”，杠杆交易填写“margin-api”
-client-order-id |string	false |	NA	 |用户自编订单号（须在24小时内保持唯一性）
+client-order-id |string	|false |	NA	 |用户自编订单号（须在24小时内保持唯一性）
 
 **buy-limit-maker**
 
