@@ -730,7 +730,7 @@ direction | string    | 交易方向：“buy” 或 “sell”, “buy” 即�
 ## 获得近期交易记录
 
 此接口返回指定交易对近期的所有交易记录。
-
+ 
 ### HTTP 请求
 
 - GET `/market/history/trade`
