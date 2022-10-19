@@ -8,7 +8,7 @@ gem 'middleman-autoprefixer', '~> 2.7.0'
 gem 'middleman-sprockets', '~> 4.1.0'
 gem 'rouge', '~> 2.0.5'
 gem 'redcarpet', '~> 3.4.0'
-gem 'nokogiri', '~> 1.8.5'
+gem 'nokogiri', '~> 1.13.9'
 
 # Javascript Runtime
 gem 'therubyracer', '~> 0.12.3'
